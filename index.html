@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>28 Bristol Road — Newton, MA | Pre-Construction Residence</title>
+  <meta name="description" content="28 Bristol Road, Newton MA — a singular pre-construction single-family residence. 7 bedrooms, 6.5 bathrooms, 5,400 sq ft across four levels. Exclusively available during pre-construction.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/details.css">
+  <link rel="stylesheet" href="css/interiors.css">
+  <link rel="stylesheet" href="css/tour.css">
+  <link rel="stylesheet" href="css/materials.css">
+  <link rel="stylesheet" href="css/location.css">
+  <link rel="stylesheet" href="css/inquire.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/preloader.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div id="loader">
+  <p class="ld-address">Newton, Massachusetts</p>
+  <p class="ld-wordmark">28 Bristol</p>
+  <div class="ld-track"><div class="ld-fill"></div></div>
+</div>
+<div id="scroll-bar"></div>
+
+<!-- ══════════ NAV ══════════ -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">28 Bristol</a>
+  <ul class="nav-links">
+    <li><a href="#hero">Vision</a></li>
+    <li><a href="#details">Details</a></li>
+    <li><a href="#tour">Tour</a></li>
+    <li><a href="#materials">Materials</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#inquire">Inquire</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu drawer -->
+<div class="nav-mobile-menu" id="navMobileMenu" aria-hidden="true">
+  <a href="#hero"      onclick="closeMenu()">Vision</a>
+  <a href="#details"   onclick="closeMenu()">Details</a>
+  <a href="#tour"      onclick="closeMenu()">Tour</a>
+  <a href="#materials" onclick="closeMenu()">Materials</a>
+  <a href="#location"  onclick="closeMenu()">Location</a>
+  <a href="#inquire"   onclick="closeMenu()">Inquire</a>
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-frame">
+    <svg id="heroSvg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <polyline points="54,54 54,130 130,130"     fill="none" stroke="rgba(196,160,106,0.28)" stroke-width="0.6"/>
+      <polyline points="1386,54 1386,130 1310,130" fill="none" stroke="rgba(196,160,106,0.28)" stroke-width="0.6"/>
+      <polyline points="54,846 54,770 130,770"     fill="none" stroke="rgba(196,160,106,0.28)" stroke-width="0.6"/>
+      <polyline points="1386,846 1386,770 1310,770" fill="none" stroke="rgba(196,160,106,0.28)" stroke-width="0.6"/>
+      <line x1="716" y1="440" x2="724" y2="440" stroke="rgba(196,160,106,0.18)" stroke-width="0.5"/>
+      <line x1="720" y1="436" x2="720" y2="444" stroke="rgba(196,160,106,0.18)" stroke-width="0.5"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="h-line" id="hEyebrow">
+      <p class="hero-eyebrow">Pre-Construction &nbsp;·&nbsp; Newton, Massachusetts</p>
+    </div>
+    <div class="h-line" id="hTitle" style="margin-bottom:24px">
+      <h1 class="hero-title">28 Bristol Road</h1>
+    </div>
+    <div class="h-line" id="hSub" style="margin-bottom:52px">
+      <p class="hero-sub">A singular residence conceived as livable sculpture — where every beam, stone, and pane of glass serves both structure and art.</p>
+    </div>
+    <div class="hero-stats" id="heroStats">
+      <div class="stat">
+        <div class="stat-val">7</div>
+        <div class="stat-lbl">Bedrooms</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">6.5</div>
+        <div class="stat-lbl">Bathrooms</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">5,400</div>
+        <div class="stat-lbl">Sq Ft</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">0.38 ac</div>
+        <div class="stat-lbl">Lot</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live viewers pill -->
+  <div class="live-pill" id="livePill">
+    <span class="live-dot"></span>
+    <span class="live-pill-text"><span class="live-pill-count" id="liveCount">847</span> visits this week</span>
+  </div>
+
+  <div class="scroll-arrow" id="scrollArrow">
+    <span>Scroll</span>
+    <div class="scroll-arrow-line"></div>
+  </div>
+</section>
+
+<!-- ══════════ PROPERTY CALLOUT STRIP ══════════ -->
+<div class="prop-callout">
+  <span class="prop-callout-text">28 Bristol Road</span>
+  <span class="prop-callout-sep"></span>
+  <span class="prop-callout-text">Pre-Construction · Newton, Massachusetts</span>
+  <span class="prop-callout-sep"></span>
+  <span class="prop-callout-text">Est. completion 2026</span>
+  <span class="prop-callout-sep"></span>
+  <span class="prop-callout-text">Available exclusively during pre-construction</span>
+</div>
+
+<!-- ══════════ VISION STRIP ══════════ -->
+<div id="vision-strip">
+  <img id="visionImg" src="images/aerial.jpg" alt="Aerial view of 28 Bristol Road" loading="lazy">
+  <p class="vision-caption">Aerial perspective · 28 Bristol Road, Newton MA</p>
+</div>
+
+<!-- ══════════ PROPERTY DETAILS ══════════ -->
+<section id="details" class="section">
+  <div class="rev">
+    <p class="section-label">Property Details</p>
+    <div class="details-top">
+      <h2 class="section-title">Designed for life<br>at every scale</h2>
+      <p class="details-intro">
+        Four levels of meticulously detailed living — from a sun-lit chef's kitchen to a private attic retreat. Every room at 28 Bristol Road is proportioned to feel generous, purposeful, and undeniably refined.
+      </p>
+    </div>
+  </div>
+
+  <div class="specs-grid rev rev-d1">
+    <div class="spec-card">
+      <p class="spec-card-lbl">Living Room</p>
+      <p class="spec-card-val">17′ × 23.5′</p>
+      <p class="spec-card-note">Formal living with Napoleon gas fireplace, Calacatta Viola Honed stone surround. 3-piece crown molding, White Oak arch details.</p>
+    </div>
+    <div class="spec-card">
+      <p class="spec-card-lbl">Primary Suite</p>
+      <p class="spec-card-val">18′ × 12′ + Sitting</p>
+      <p class="spec-card-note">Second floor. Private 17′ × 10′ sitting area, dual walk-in closets (Sangiacomo), Napoleon gas fireplace, spa bathroom.</p>
+    </div>
+    <div class="spec-card">
+      <p class="spec-card-lbl">Bedroom 1 (First Floor)</p>
+      <p class="spec-card-val">17.5′ × 10.5′</p>
+      <p class="spec-card-note">First-floor guest suite with en-suite bath and direct outdoor access. Ideal for in-law or au-pair.</p>
+    </div>
+    <div class="spec-card">
+      <p class="spec-card-lbl">Bedroom 3</p>
+      <p class="spec-card-val">17.5′ × 13.5′</p>
+      <p class="spec-card-note">Generous second-floor room with Kallista One en-suite, Sangiacomo closet, and natural light from dual exposures.</p>
+    </div>
+    <div class="spec-card">
+      <p class="spec-card-lbl">Structure</p>
+      <p class="spec-card-val">4 Levels</p>
+      <p class="spec-card-note">First floor (2,914 sq ft) · Second floor · Finished attic (~1,650 sq ft) · Lower level. Wood-framed with masonry foundation.</p>
+    </div>
+    <div class="spec-card">
+      <p class="spec-card-lbl">Exterior &amp; Roof</p>
+      <p class="spec-card-val">Stone · Wood · Glass</p>
+      <p class="spec-card-note">Natural stone cladding, dark architectural wood, oversized casement windows, slate-profile roofline. Covered front entry.</p>
+    </div>
+  </div>
+
+  <div class="rev rev-d2">
+    <p class="section-label amenities-label">Amenities</p>
+    <div class="amenities-wrap">
+      <div class="amenity">
+        <span class="amenity-num">01</span>
+        <div>
+          <h4>Chef's Kitchen</h4>
+          <p>BlueStar 48" dual-fuel range · Sub-Zero column refrigerator &amp; freezer · Wolf steam + wall ovens · Miele dishwashers. Statuario Spider Polished countertops. Perrin &amp; Rowe polished nickel throughout.</p>
+        </div>
+      </div>
+      <div class="amenity">
+        <span class="amenity-num">02</span>
+        <div>
+          <h4>Attached 2-Car Garage</h4>
+          <p>700 sq ft attached garage with EV charging station. Direct mudroom entry with built-in bench and custom cubbies. Stone floor entry.</p>
+        </div>
+      </div>
+      <div class="amenity">
+        <span class="amenity-num">03</span>
+        <div>
+          <h4>Primary Suite &amp; Spa</h4>
+          <p>Victoria &amp; Albert freestanding soaking tub · Kallista Script freestanding faucet · dual rain showers · Kohler Innate smart toilet. Amazing Silver Honed stone throughout.</p>
+        </div>
+      </div>
+      <div class="amenity">
+        <span class="amenity-num">04</span>
+        <div>
+          <h4>Lower Level</h4>
+          <p>Recreation room (~540 sq ft) · wet bar with Noce Cotto cabinetry and vertical LED · Sub-Zero beverage center · Napoleon Astound 50" electric fireplace · dedicated laundry room.</p>
+        </div>
+      </div>
+      <div class="amenity">
+        <span class="amenity-num">05</span>
+        <div>
+          <h4>Outdoor Living</h4>
+          <p>Stone patio with covered dining area · wood-framed deck · mature landscaping on 0.38 ac. Outdoor kitchen ready. Front stone patio &amp; new covered entry.</p>
+        </div>
+      </div>
+      <div class="amenity">
+        <span class="amenity-num">06</span>
+        <div>
+          <h4>Private Home Office</h4>
+          <p>First-floor library office with custom inset built-in cabinets. BM Ashwood Moss accent wall. 5-piece door construction with Brushed Aluminum paint finish on integrated shelving.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ INTERIOR GALLERY ══════════ -->
+<div id="interiors">
+  <div class="interiors-row rev">
+    <div class="interior-panel">
+      <img src="images/living-room.jpg" alt="Living Room" loading="lazy">
+      <span class="interior-panel-label">Living Room</span>
+    </div>
+    <div class="interior-panel">
+      <img src="images/kitchen.jpg" alt="Chef's Kitchen" loading="lazy">
+      <span class="interior-panel-label">Chef's Kitchen</span>
+    </div>
+  </div>
+  <div class="interiors-row flipped rev">
+    <div class="interior-panel">
+      <img src="images/bathroom.jpg" alt="Primary Bathroom" loading="lazy">
+      <span class="interior-panel-label">Primary Bathroom</span>
+    </div>
+    <div class="interior-panel">
+      <img src="images/bedroom.jpg" alt="Primary Bedroom" loading="lazy">
+      <span class="interior-panel-label">Primary Bedroom</span>
+    </div>
+  </div>
+  <div class="interiors-row flipped rev">
+    <div class="interior-panel">
+      <img src="images/entry-hall.jpg" alt="Entry Hall" loading="lazy">
+      <span class="interior-panel-label">Entry Hall</span>
+    </div>
+    <div class="interior-panel">
+      <img src="images/road-view.jpg" alt="Street View" loading="lazy">
+      <span class="interior-panel-label">Street View</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 360 TOUR ══════════ -->
+<section id="tour">
+  <div class="tour-header rev">
+    <p class="section-label">Digital Walkthrough</p>
+    <div class="tour-title-row">
+      <h2 class="section-title">Move through<br>every space</h2>
+      <p class="tour-hint">Drag left or right to explore each 360° panorama. Select a room below to navigate between spaces across all four levels.</p>
+    </div>
+  </div>
+
+  <div class="pano-wrap" id="panoWrap">
+    <!-- Room activity chip -->
+    <div class="room-activity" id="roomActivity">
+      <span class="room-activity-dot"></span>
+      <span class="room-activity-text"><span class="room-activity-count" id="roomCount">12</span> people in this room now</span>
+    </div>
+    <div class="pano-drag-cue" id="panoCue">
+      <div class="drag-ring">
+        <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+          <path d="M2 8H20M2 8L6 4M2 8L6 12M20 8L16 4M20 8L16 12" stroke="rgba(240,235,227,0.7)" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="drag-label">Drag to explore</span>
+    </div>
+    <div class="pano-progress" id="panoProgress"></div>
+    <!-- Scenes injected by JS -->
+  </div>
+
+  <div class="tour-nav" id="tourNav"></div>
+</section>
+
+<!-- ══════════ MATERIALS ══════════ -->
+<section id="materials" class="section">
+  <div class="rev">
+    <p class="section-label">Materials &amp; Finishes</p>
+    <div class="mat-top">
+      <div>
+        <h2 class="section-title">Every surface<br>considered</h2>
+        <p class="mat-text" style="margin-top:28px">
+          From hand-selected Sangiacomo Italian closet systems to rare marble slab countertops, each finish at 28 Bristol Road was chosen for visual permanence and enduring quality.
+        </p>
+        <p class="mat-text" style="margin-top:18px; font-size:13px; color:var(--text-dim)">
+          Floors: 4" wide White Oak hardwood throughout. Fireplaces: Napoleon (Library, Master, Attic, Family Room). Plumbing: Kallista, Kohler, Perrin &amp; Rowe — polished nickel finish.
+        </p>
+      </div>
+      <div>
+        <div class="stone-table">
+          <div class="stone-row"><span class="stone-room">Main Kitchen</span><span class="stone-name">Statuario Spider Polished</span></div>
+          <div class="stone-row"><span class="stone-room">Pantry &amp; 2nd Kitchen</span><span class="stone-name">Soapstone Black Honed</span></div>
+          <div class="stone-row"><span class="stone-room">Library Countertop</span><span class="stone-name">Tropical Storm Leathered</span></div>
+          <div class="stone-row"><span class="stone-room">Family Room &amp; Nook</span><span class="stone-name">Arabescato Orobico Leathered</span></div>
+          <div class="stone-row"><span class="stone-room">Primary Bath &amp; Fireplace</span><span class="stone-name">Amazing Silver Honed</span></div>
+          <div class="stone-row"><span class="stone-room">Living Room Fireplace</span><span class="stone-name">Calacatta Viola Honed</span></div>
+          <div class="stone-row"><span class="stone-room">Basement Bar &amp; Dining</span><span class="stone-name">Tropical Storm Polished</span></div>
+          <div class="stone-row"><span class="stone-room">Basement Fireplace</span><span class="stone-name">Pierre Blue Limestone</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mat-gallery rev rev-d1" id="matGallery">
+    <div class="mat-thumb" data-idx="0"><img src="images/mat-1.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="1"><img src="images/mat-2.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="2"><img src="images/mat-3.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="3"><img src="images/mat-4.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="4"><img src="images/mat-5.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="5"><img src="images/mat-6.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="6"><img src="images/mat-7.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="7"><img src="images/mat-8.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="8"><img src="images/mat-9.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="9"><img src="images/mat-10.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+  </div>
+</section>
+
+<!-- ══════════ LOCATION ══════════ -->
+<section id="location" class="section">
+  <div class="rev">
+    <p class="section-label">Location &amp; Proximities</p>
+    <h2 class="section-title">Newton Centre,<br>Massachusetts</h2>
+  </div>
+
+  <div class="loc-layout rev rev-d1">
+    <div id="map-box">
+      <div id="map"></div>
+      <div class="route-info-panel" id="routePanel">
+        <div class="route-info-left">
+          <div class="route-info-name" id="routeName">—</div>
+          <div class="route-info-addr" id="routeAddr">—</div>
+        </div>
+        <div class="route-times">
+          <div class="route-time-item">
+            <span class="route-time-icon">🚗</span>
+            <span class="route-time-val loading" id="timeDrive">—</span>
+            <span class="route-time-lbl">By Car</span>
+          </div>
+          <div class="route-time-item">
+            <span class="route-time-icon">🚶</span>
+            <span class="route-time-val loading" id="timeWalk">—</span>
+            <span class="route-time-lbl">Walking</span>
+          </div>
+          <div class="route-time-item">
+            <span class="route-time-icon">🚲</span>
+            <span class="route-time-val loading" id="timeBike">—</span>
+            <span class="route-time-lbl">Cycling</span>
+          </div>
+        </div>
+        <button class="route-close-btn" id="routeClose">✕</button>
+      </div>
+    </div>
+
+    <div class="prox-groups">
+      <div>
+        <p class="prox-group-lbl">Education</p>
+        <div class="prox-item" data-lat="42.3334" data-lng="-71.2119" data-name="Cabot Elementary School" data-addr="229 Cabot St, Newton Centre, MA 02459">
+          <span class="prox-name">Cabot Elementary School</span><span class="prox-dist">0.4 mi</span>
+        </div>
+        <div class="prox-item" data-lat="42.3274" data-lng="-71.1997" data-name="Newton Country Day School" data-addr="785 Centre St, Newton Centre, MA 02459">
+          <span class="prox-name">Newton Country Day School</span><span class="prox-dist">0.6 mi</span>
+        </div>
+        <div class="prox-item" data-lat="42.3234" data-lng="-71.2005" data-name="Newton South High School" data-addr="140 Brandeis Rd, Newton Centre, MA 02459">
+          <span class="prox-name">Newton South High School</span><span class="prox-dist">0.9 mi</span>
+        </div>
+        <div class="prox-item" data-lat="42.3744" data-lng="-71.1169" data-name="Harvard University" data-addr="Massachusetts Hall, Cambridge, MA 02138">
+          <span class="prox-name">Harvard University</span><span class="prox-dist">7.3 mi</span>
+        </div>
+        <div class="prox-item" data-lat="42.3601" data-lng="-71.0942" data-name="Massachusetts Institute of Technology" data-addr="77 Massachusetts Ave, Cambridge, MA 02139">
+          <span class="prox-name">MIT</span><span class="prox-dist">9.1 mi</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="prox-group-lbl">Shopping &amp; Dining</p>
+        <div class="prox-item" data-lat="42.3296" data-lng="-71.2047" data-name="Newton Centre Village" data-addr="755 Beacon St, Newton Centre, MA 02459">
+          <span class="prox-name">Newton Centre Village</span><span class="prox-dist">0.5 mi</span>
+        </div>
+        <div class="prox-item" data-lat="42.3164" data-lng="-71.2001" data-name="Stop &amp; Shop" data-addr="176 Needham St, Newton Highlands, MA 02461">
+          <span class="prox-name">Stop &amp; Shop</span><span class="prox-dist">0.8 mi</span>
+        </div>
+        <div class="prox-item" data-lat="42.3157" data-lng="-71.2107" data-name="Whole Foods Market" data-addr="916 Walnut St, Newton Highlands, MA 02461">
+          <span class="prox-name">Whole Foods Market</span><span class="prox-dist">1.2 mi</span>
+        </div>
+        <div class="prox-item" data-lat="42.3381" data-lng="-71.1703" data-name="Chestnut Hill Shopping Center" data-addr="199 Boylston St, Chestnut Hill, MA 02467">
+          <span class="prox-name">Chestnut Hill Shopping</span><span class="prox-dist">2.3 mi</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="prox-group-lbl">Transit &amp; Access</p>
+        <div class="prox-item" data-lat="42.3282" data-lng="-71.1999" data-name="Newton Centre T Station" data-addr="1266 Centre St, Newton Centre, MA 02459 · Green Line D">
+          <span class="prox-name">Newton Centre T (Green Line D)</span><span class="prox-dist">0.5 mi</span>
+        </div>
+        <div class="prox-item" data-lat="42.3480" data-lng="-71.1680" data-name="Mass Pike (I-90) On-Ramp" data-addr="Newton, MA — access via Route 9">
+          <span class="prox-name">Mass Pike (I-90)</span><span class="prox-dist">2.5 mi</span>
+        </div>
+        <div class="prox-item" data-lat="42.3554" data-lng="-71.0640" data-name="South Station" data-addr="700 Atlantic Ave, Boston, MA 02110 · Commuter Rail">
+          <span class="prox-name">South Station (Commuter Rail)</span><span class="prox-dist">8.5 mi</span>
+        </div>
+        <div class="prox-item" data-lat="42.3601" data-lng="-71.0589" data-name="Downtown Boston" data-addr="Boston, MA 02108">
+          <span class="prox-name">Downtown Boston</span><span class="prox-dist">8 mi</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ INQUIRY ══════════ -->
+<section id="inquire" class="section">
+  <div class="inq-layout">
+    <div class="rev">
+      <p class="section-label">Private Inquiry</p>
+      <h2 class="section-title">Reserve your<br>early access</h2>
+
+      <div class="inq-scarcity">
+        <span class="inq-dot"></span>
+        <span class="inq-scarcity-txt">Only <strong>5 inquiries</strong> accepted at this stage</span>
+      </div>
+
+      <p class="inq-lead">Pre-construction access unlocks custom finish selections and priority positioning — advantages that close permanently at completion.</p>
+
+      <ul class="inq-perks">
+        <li>Choose your own stone slabs from the curated palette</li>
+        <li>Access full architectural drawings &amp; spec documentation</li>
+        <li>Schedule a private site visit by appointment</li>
+      </ul>
+    </div>
+
+    <div class="rev rev-d2">
+      <form class="inq-form" id="inqForm" onsubmit="submitInquiry(event)">
+        <div class="form-row">
+          <div class="f-field">
+            <label for="fn">First Name *</label>
+            <input type="text" id="fn" placeholder="Alexandra" required>
+          </div>
+          <div class="f-field">
+            <label for="ln">Last Name *</label>
+            <input type="text" id="ln" placeholder="Hartley" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="f-field">
+            <label for="em">Email Address *</label>
+            <input type="email" id="em" placeholder="your@email.com" required>
+          </div>
+          <div class="f-field">
+            <label for="ph">Phone Number *</label>
+            <input type="tel" id="ph" placeholder="+1 (617) 000-0000" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="f-field wide">
+            <label for="msg">Message (Optional)</label>
+            <textarea id="msg" placeholder="I'm interested in learning more about the pre-construction opportunity at 28 Bristol Road…"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="form-btn">Request Private Access</button>
+        <p class="form-note">Your inquiry is strictly confidential. A member of the Garban Group will respond as soon as possible.</p>
+      </form>
+      <div class="form-ok" id="formOk">
+        <h3>Thank you.</h3>
+        <p>Your inquiry has been received.<br>A Garban Group representative will be in touch as soon as possible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-property">
+      <p class="foot-eyebrow">Pre-construction &nbsp;·&nbsp; Newton, Massachusetts</p>
+      <p class="foot-address">28 Bristol Road</p>
+      <p class="foot-tagline">Pre-construction single-family residence — seven bedrooms, six and a half bathrooms, 5,400 sq ft across four levels.</p>
+    </div>
+
+    <div class="footer-agent">
+      <div class="agent-avatar">
+        <img src="images/agent.jpg" alt="Aurel Garban">
+      </div>
+      <div class="agent-info">
+        <p class="agent-name">Aurel Garban</p>
+        <p class="agent-title">20+ Years in Real Estate &amp; Development</p>
+        <p class="agent-brokerage">Gibson Sotheby's International Realty</p>
+        <div class="agent-contacts">
+          <a href="tel:6178751914">(617) 875-1914</a>
+          <a href="mailto:aurel.garban@gibsonsir.com">aurel.garban@gibsonsir.com</a>
+        </div>
+        <p class="agent-address">1334 Beacon St, Brookline, MA 02446</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bot">
+    <span>© 2026 The Garban Group. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Fair Housing Notice</a>
+      <a href="#">Equal Housing Opportunity</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ LIGHTBOX ══════════ -->
+<div id="lb">
+  <button id="lb-close" onclick="lbClose()">×</button>
+  <button id="lb-prev"  onclick="lbNav(-1)">← Prev</button>
+  <img id="lbImg" src="" alt="">
+  <button id="lb-next"  onclick="lbNav(1)">Next →</button>
+</div>
+
+<!-- External deps -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- App scripts — order matters -->
+<script src="js/preloader.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/hero.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/tour.js"></script>
+<script src="js/map.js"></script>
+<script src="js/gallery.js"></script>
+<script src="js/form.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-s:         #FAFAF8;
+  --bg-warm:      #FFFFFF;
+  --text:         #19180F;
+  --text-mid:     #4A4440;
+  --text-dim:     #6D6660;
+  --accent:       #B8924A;
+  --accent-lt:    #D4AA6E;
+  --border:       rgba(25,24,15,0.1);
+  --border-dim:   rgba(25,24,15,0.07);
+  --serif:        'Cormorant Garant', Georgia, serif;
+  --sans:         'Inter', -apple-system, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-s);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.65;
+  overflow-x: hidden;
+}

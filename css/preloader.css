@@ -1,0 +1,45 @@
+/* ━━━━━━━━━━━━━━ PRELOADER ━━━━━━━━━━━━━━ */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: #FAFAF8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  transition: opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+#loader.out { opacity: 0; pointer-events: none; }
+.ld-address {
+  font-size: 11px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  opacity: 0;
+  transition: opacity 0.5s 0.1s;
+}
+.ld-wordmark {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.55s 0.05s, transform 0.55s 0.05s cubic-bezier(0.16,1,0.3,1);
+}
+#loader.rdy .ld-address,
+#loader.rdy .ld-wordmark { opacity: 1; transform: none; }
+.ld-track {
+  width: 72px; height: 1px;
+  background: rgba(25,24,15,0.1);
+  overflow: hidden;
+}
+.ld-fill {
+  height: 100%; width: 0%;
+  background: var(--accent);
+  transition: width 1.3s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s;
+}
+#loader.rdy .ld-fill { width: 100%; }
