@@ -63,3 +63,38 @@ if (formBtn) {
   });
   formBtn.addEventListener('mouseleave', () => { formBtn.style.transform = ''; });
 }
+
+// ━━━━━━━━━━━━━━ PHASE 3: VANILLA TILT.JS ━━━━━━━━━━━━━━
+function initTilt() {
+  if (typeof VanillaTilt === 'undefined') return;
+
+  // Interior panels — subtle luxury tilt
+  VanillaTilt.init(document.querySelectorAll('.interior-panel'), {
+    max: 4,
+    speed: 500,
+    glare: true,
+    'max-glare': 0.08,
+    scale: 1.025,
+    perspective: 1200,
+    easing: 'cubic-bezier(.03,.98,.52,.99)',
+  });
+
+  // Materials grid — slightly more expressive
+  VanillaTilt.init(document.querySelectorAll('.mat-thumb'), {
+    max: 7,
+    speed: 400,
+    glare: true,
+    'max-glare': 0.12,
+    scale: 1.04,
+    perspective: 900,
+  });
+}
+
+// Init after Tilt.js loads (it's deferred in the HTML)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTilt);
+} else {
+  initTilt();
+}
+// Also try again 1s later in case the CDN script hasn't parsed yet
+setTimeout(initTilt, 1000);

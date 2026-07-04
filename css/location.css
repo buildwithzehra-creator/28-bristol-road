@@ -94,8 +94,7 @@
   flex-shrink: 0;
 }
 .route-close-btn:hover { border-color: var(--accent); color: var(--accent); }
-.prox-item.active { border-color: rgba(184,146,74,0.5); background: rgba(184,146,74,0.04); }
-.prox-item.active .prox-name { color: var(--accent); }
+
 
 /* Leaflet popup override */
 .leaflet-popup-content-wrapper {
@@ -115,19 +114,23 @@
   font-size: 11px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--text-dim);
   margin-bottom: 12px;
 }
 .prox-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 11px 0;
+  padding: 12px 14px;
+  margin: 0 -14px;
   border-bottom: 1px solid var(--border-dim);
   cursor: pointer;
-  transition: border-color 0.3s;
+  transition: background 0.25s, border-color 0.25s;
+  border-radius: 2px;
 }
-.prox-item:hover { border-color: rgba(196,160,106,0.4); }
+.prox-item:hover { background: rgba(196,160,106,0.06); border-color: rgba(196,160,106,0.3); }
 .prox-item:hover .prox-name { color: var(--text); }
-.prox-name { font-size: 12.5px; color: var(--text-mid); transition: color 0.3s; }
+.prox-item.active { background: rgba(184,146,74,0.07); border-color: rgba(184,146,74,0.45); }
+.prox-item.active .prox-name { color: var(--accent); }
+.prox-name { font-size: 12.5px; color: var(--text-mid); transition: color 0.25s; }
 .prox-dist { font-family: var(--serif); font-size: 13px; color: var(--text-dim); }

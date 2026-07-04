@@ -1,132 +1,190 @@
-// ━━━━━━━━━━━━━━ ROOM ACTIVITY ━━━━━━━━━━━━━━
-(function() {
-  const roomCounts = [18, 23, 11, 9, 7, 26, 14, 8, 19, 12];
-  const roomEl = document.getElementById('roomCount');
-  const activityEl = document.getElementById('roomActivity');
-  if (!roomEl || !activityEl) return;
+// ━━━━━━━━━━━━━━ VIDEO TOUR — Phases 1, 2, 3 ━━━━━━━━━━━━━━
+const BASE = 'https://d8j0ntlcm91z4.cloudfront.net/user_3FZ23qe6er1GndDtX16N8ULc4La/';
 
-  let current = roomCounts[0];
-  let flickerTimer;
-
-  function startFlicker(base) {
-    clearTimeout(flickerTimer);
-    function tick() {
-      const delta = Math.floor(Math.random() * 5) - 2;
-      current = Math.max(3, base + delta);
-      roomEl.textContent = current;
-      flickerTimer = setTimeout(tick, 3200 + Math.random() * 2000);
-    }
-    tick();
-  }
-
-  window.__setRoomActivity = function(idx) {
-    const base = roomCounts[idx] ?? (8 + Math.floor(Math.random() * 18));
-    current = base;
-    roomEl.textContent = current;
-    activityEl.style.transform = 'scale(1.04)';
-    activityEl.style.transition = 'transform 0.18s ease';
-    setTimeout(() => { activityEl.style.transform = ''; activityEl.style.transition = ''; }, 200);
-    startFlicker(base);
-  };
-
-  startFlicker(roomCounts[0]);
-})();
-
-// ━━━━━━━━━━━━━━ 360 PANORAMA ━━━━━━━━━━━━━━
 const scenes = [
-  { label: 'First Floor', name: 'Living Room',     src: 'images/pano-0.jpg' },
-  { label: 'First Floor', name: "Chef's Kitchen",  src: 'images/pano-1.jpg' },
-  { label: 'First Floor', name: 'Kitchen Overview',src: 'images/pano-2.jpg' },
-  { label: 'Entry',       name: 'Entry Hallway',   src: 'images/pano-3.jpg' },
-  { label: 'First Floor', name: 'Home Office',     src: 'images/pano-4.jpg' },
-  { label: 'Second Floor',name: 'Primary Suite',   src: 'images/pano-5.jpg' },
-  { label: 'Second Floor',name: 'Bedroom Two',     src: 'images/pano-6.jpg' },
-  { label: 'Second Floor',name: 'Bedroom Three',   src: 'images/pano-7.jpg' },
-  { label: 'Second Floor',name: 'Primary Bath',    src: 'images/pano-8.jpg' },
-  { label: 'Ground Floor',name: 'Kitchen Level 2', src: 'images/pano-9.jpg' }
+  { name: 'Entry Hall',      floor: 'Entry',         video: BASE + 'hf_20260626_192425_5f5651b0-b663-4da6-b7d4-0a1b2f47cb34.mp4', roomId: 'r-entry',   abbr: 'E'  },
+  { name: 'Living Room',     floor: 'First Floor',   video: BASE + 'hf_20260626_191854_a87dffcc-aa68-4c52-b8b3-bd9db668761e.mp4', roomId: 'r-living',  abbr: 'LR' },
+  { name: "Chef's Kitchen",  floor: 'First Floor',   video: BASE + 'hf_20260626_192427_93875272-a076-46cf-97f8-1f263749ca7b.mp4', roomId: 'r-kitchen', abbr: 'K'  },
+  { name: 'Family Room',     floor: 'First Floor',   video: BASE + 'hf_20260626_192423_e52f3743-fd20-4c06-897f-c92f50475a92.mp4', roomId: 'r-family',  abbr: 'FR' },
+  { name: 'Family & Kit.',   floor: 'First Floor',   video: BASE + 'hf_20260626_191901_e1212c4a-7cd8-4e92-8702-395a2684489e.mp4', roomId: 'r-fk',      abbr: 'FK' },
+  { name: 'Primary Suite',   floor: 'Second Floor',  video: BASE + 'hf_20260626_192908_c3bceb2f-124c-4b89-acdf-2bf0f0aa65d2.mp4', roomId: 'r-master',  abbr: 'PS' },
+  { name: 'Master Bath',     floor: 'Second Floor',  video: BASE + 'hf_20260626_191904_e75f87ea-02ad-419a-b6aa-ca9f21cf55a5.mp4', roomId: 'r-bath',    abbr: 'MB' },
+  { name: 'Bedroom Two',     floor: 'Second Floor',  video: BASE + 'hf_20260626_191909_8683ced7-3e9b-479c-9096-cae4e5e6e342.mp4', roomId: 'r-bed2',    abbr: 'B2' },
+  { name: 'Bedroom Three',   floor: 'Second Floor',  video: BASE + 'hf_20260626_191912_61c0c78e-c22f-4c28-958c-b23527f021c7.mp4', roomId: 'r-bed3',    abbr: 'B3' },
 ];
 
-const panoWrap = document.getElementById('panoWrap');
-const tourNav  = document.getElementById('tourNav');
-const panoCue  = document.getElementById('panoCue');
-const panoProgress = document.getElementById('panoProgress');
+const roomCounts = [18, 23, 11, 9, 7, 26, 14, 8, 19];
+
+const panoWrap    = document.getElementById('panoWrap');
+const tourHotspots = document.getElementById('tourHotspots');
+const panoFloorLbl = document.getElementById('panoFloorLbl');
+const panoNameLbl  = document.getElementById('panoNameLbl');
+const roomCountEl  = document.getElementById('roomCount');
+const roomActivityEl = document.getElementById('roomActivity');
+
+if (panoWrap && tourHotspots) {
 
 let currentScene = 0;
-let dragActive = false;
-let dragStartX = 0;
-let panPercent = 50;
-let sceneElements = [];
+let flickerTimer;
 
+// ── Room activity flicker ──
+function startFlicker(base) {
+  clearTimeout(flickerTimer);
+  function tick() {
+    if (roomCountEl) roomCountEl.textContent = Math.max(3, base + Math.floor(Math.random() * 5) - 2);
+    flickerTimer = setTimeout(tick, 3200 + Math.random() * 2000);
+  }
+  tick();
+}
+
+// ━━━━━━━━━━━━━━ PHASE 1 + 2: Build scroll-snap scenes with video ━━━━━━━━━━━━━━
 scenes.forEach((sc, i) => {
   const div = document.createElement('div');
-  div.className = 'pano-scene' + (i === 0 ? ' active' : '');
+  div.className = 'pano-scene';
+  div.dataset.idx = i;
   div.innerHTML = `
-    <div class="pano-inner" id="panoInner${i}" style="transform:translateX(-25%)">
-      <img src="${sc.src}" alt="${sc.name}" draggable="false" loading="${i === 0 ? 'eager' : 'lazy'}">
-    </div>
-    <div class="pano-info">
-      <p class="pano-info-lbl">${sc.label}</p>
-      <p class="pano-info-name">${sc.name}</p>
-    </div>
+    <video class="pano-video" autoplay muted loop playsinline preload="${i === 0 ? 'auto' : 'none'}">
+      <source src="${sc.video}" type="video/mp4">
+    </video>
   `;
-  panoWrap.insertBefore(div, panoCue);
-  sceneElements.push(div);
+  panoWrap.appendChild(div);
+});
 
+// ── Scroll cue (fades after first scroll) ──
+const cue = document.createElement('div');
+cue.className = 'pano-scroll-cue';
+cue.innerHTML = `<span>Scroll</span><div class="pano-scroll-line"></div>`;
+document.querySelector('.pano-overlay').appendChild(cue);
+panoWrap.addEventListener('scroll', () => cue.classList.add('gone'), { once: true });
+
+// ━━━━━━━━━━━━━━ PHASE 2: Floating hotspot buttons ━━━━━━━━━━━━━━
+scenes.forEach((sc, i) => {
   const btn = document.createElement('button');
-  btn.className = 'tnav-btn' + (i === 0 ? ' active' : '');
-  btn.textContent = sc.name;
-  btn.onclick = () => switchScene(i);
-  tourNav.appendChild(btn);
+  btn.className = 'hotspot-btn' + (i === 0 ? ' active' : '');
+  btn.textContent = sc.abbr;
+  btn.setAttribute('title', sc.name);
+  btn.addEventListener('click', () => scrollToScene(i));
+  tourHotspots.appendChild(btn);
 });
 
-function switchScene(idx) {
-  sceneElements[currentScene].classList.remove('active');
-  document.querySelectorAll('.tnav-btn')[currentScene].classList.remove('active');
+function scrollToScene(idx) {
+  const sceneEls = panoWrap.querySelectorAll('.pano-scene');
+  if (sceneEls[idx]) {
+    panoWrap.scrollTo({ top: sceneEls[idx].offsetTop, behavior: 'smooth' });
+  }
+}
+
+// ── Update UI when scene changes ──
+function updateActiveScene(idx) {
+  if (idx === currentScene && idx !== 0) return;
   currentScene = idx;
-  sceneElements[idx].classList.add('active');
-  document.querySelectorAll('.tnav-btn')[idx].classList.add('active');
-  panPercent = 50;
-  applyPan();
-  if (window.__setRoomActivity) window.__setRoomActivity(idx);
+  const sc = scenes[idx];
+
+  if (panoFloorLbl) panoFloorLbl.textContent = sc.floor;
+  if (panoNameLbl)  panoNameLbl.textContent  = sc.name;
+
+  // Hotspot buttons
+  document.querySelectorAll('.hotspot-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === idx);
+  });
+
+  // Room activity pulse
+  const base = roomCounts[idx] ?? 12;
+  if (roomCountEl) roomCountEl.textContent = base;
+  if (roomActivityEl) {
+    roomActivityEl.style.transform = 'scale(1.05)';
+    setTimeout(() => { roomActivityEl.style.transform = ''; }, 220);
+  }
+  startFlicker(base);
+
+  // Floor plan
+  updateFloorPlan(sc.roomId);
 }
 
-function applyPan() {
-  const tx = -panPercent / 2;
-  const inner = document.getElementById('panoInner' + currentScene);
-  if (inner) inner.style.transform = `translateX(${tx}%)`;
-  panoProgress.style.width = panPercent + '%';
+// ── IntersectionObserver: detect which scene is snapped ──
+const sceneObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+      updateActiveScene(+e.target.dataset.idx);
+    }
+  });
+}, { root: panoWrap, threshold: 0.5 });
+
+// ── IntersectionObserver: lazy load + play/pause videos ──
+const videoObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    const vid = e.target.querySelector('.pano-video');
+    if (!vid) return;
+    if (e.isIntersecting) {
+      if (vid.preload === 'none') { vid.preload = 'auto'; vid.load(); }
+      vid.play().catch(() => {});
+    } else {
+      vid.pause();
+    }
+  });
+}, { root: panoWrap, threshold: 0.15 });
+
+panoWrap.querySelectorAll('.pano-scene').forEach(el => {
+  sceneObs.observe(el);
+  videoObs.observe(el);
+});
+
+// Init first scene
+updateActiveScene(0);
+
+// ━━━━━━━━━━━━━━ PHASE 3: SVG Floor Plan ━━━━━━━━━━━━━━
+// FK shares kitchen + family rooms visually
+const fkRooms = ['r-kitchen', 'r-family'];
+
+function updateFloorPlan(roomId) {
+  const activeIds = roomId === 'r-fk' ? fkRooms : [roomId];
+
+  document.querySelectorAll('.fp-room').forEach(el => {
+    const isActive = activeIds.includes(el.id);
+    const wasActive = el.classList.contains('active');
+    el.classList.toggle('active', isActive);
+
+    if (isActive && !wasActive) {
+      // Draw-on animation
+      let len = 800;
+      try { len = el.getTotalLength(); } catch(e) {}
+      el.style.setProperty('--fp-len', len + 'px');
+      el.style.strokeDasharray = len;
+      el.style.strokeDashoffset = len;
+      // Force reflow then animate
+      el.getBoundingClientRect();
+      el.classList.add('drawing');
+      el.addEventListener('animationend', () => {
+        el.classList.remove('drawing');
+        el.style.strokeDasharray = '';
+        el.style.strokeDashoffset = '';
+      }, { once: true });
+    }
+  });
+
+  // Update room labels
+  document.querySelectorAll('.fp-room-lbl').forEach(el => {
+    const rid = el.dataset.room;
+    el.classList.toggle('active', activeIds.includes(rid));
+  });
 }
 
-panoWrap.addEventListener('mousedown', e => {
-  dragActive = true;
-  dragStartX = e.clientX;
-  panoCue.classList.add('gone');
+// Floor plan room clicks → scroll to matching scene
+document.querySelectorAll('.fp-room').forEach(el => {
+  el.addEventListener('click', () => {
+    let targetIdx = scenes.findIndex(sc => {
+      if (el.id === 'r-fk') return sc.roomId === 'r-fk';
+      return sc.roomId === el.id;
+    });
+    // For FK combo clicks on kitchen/family paths, find FK scene
+    if (targetIdx === -1 && fkRooms.includes(el.id)) {
+      targetIdx = scenes.findIndex(sc => sc.roomId === el.id);
+    }
+    if (targetIdx !== -1) scrollToScene(targetIdx);
+  });
 });
-window.addEventListener('mousemove', e => {
-  if (!dragActive) return;
-  const dx = e.clientX - dragStartX;
-  dragStartX = e.clientX;
-  panPercent = Math.max(0, Math.min(100, panPercent - dx * 0.06));
-  applyPan();
-});
-window.addEventListener('mouseup', () => { dragActive = false; });
 
-panoWrap.addEventListener('touchstart', e => {
-  dragStartX = e.touches[0].clientX;
-  panoCue.classList.add('gone');
-}, { passive: true });
-panoWrap.addEventListener('touchmove', e => {
-  const dx = e.touches[0].clientX - dragStartX;
-  dragStartX = e.touches[0].clientX;
-  panPercent = Math.max(0, Math.min(100, panPercent - dx * 0.06));
-  applyPan();
-}, { passive: true });
+// Init floor plan
+updateFloorPlan('r-entry');
 
-document.addEventListener('keydown', e => {
-  const tourEl = document.getElementById('tour');
-  const rect = tourEl.getBoundingClientRect();
-  const inView = rect.top < window.innerHeight && rect.bottom > 0;
-  if (!inView) return;
-  if (e.key === 'ArrowLeft')  { panPercent = Math.max(0, panPercent - 4); applyPan(); }
-  if (e.key === 'ArrowRight') { panPercent = Math.min(100, panPercent + 4); applyPan(); }
-});
+}

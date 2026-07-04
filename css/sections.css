@@ -36,6 +36,43 @@
 .rev-d3 { transition-delay: 0.3s; }
 .rev-d4 { transition-delay: 0.4s; }
 
+/* ━━━━━━━━━━━━━━ PROPERTY CALLOUT TICKER ━━━━━━━━━━━━━━ */
+.prop-callout {
+  overflow: hidden;
+  background: #EFECE6;
+  border-top: 1px solid rgba(25,24,15,0.07);
+  border-bottom: 1px solid rgba(25,24,15,0.07);
+  padding: 13px 0;
+  white-space: nowrap;
+  user-select: none;
+}
+.prop-callout-track {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  animation: marqueeScroll 28s linear infinite;
+  will-change: transform;
+}
+.prop-callout:hover .prop-callout-track { animation-play-state: paused; }
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.prop-callout-text {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  padding: 0 28px;
+  flex-shrink: 0;
+}
+.prop-callout-sep {
+  color: var(--accent);
+  font-size: 8px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
 /* ━━━━━━━━━━━━━━ VISION STRIP ━━━━━━━━━━━━━━ */
 #vision-strip {
   padding: 0;

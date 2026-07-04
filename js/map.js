@@ -46,7 +46,7 @@ function initMap() {
     { label: 'Whole Foods',            coords: [42.3157,-71.2107], type: 'shop' },
     { label: 'Chestnut Hill Shopping', coords: [42.3381,-71.1703], type: 'shop' },
     { label: 'Newton Centre T',        coords: [42.3282,-71.1999], type: 'transit' },
-    { label: 'Mass Pike (I-90)',       coords: [42.3480,-71.1680], type: 'transit' },
+    { label: 'Logan Airport',          coords: [42.3656,-71.0096], type: 'transit' },
     { label: 'South Station',          coords: [42.3554,-71.0640], type: 'transit' },
     { label: 'Downtown Boston',        coords: [42.3601,-71.0589], type: 'transit' },
   ];

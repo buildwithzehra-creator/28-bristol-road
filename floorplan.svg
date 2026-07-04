@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 300" aria-label="28 Bristol Road ground floor plan">
+  <defs>
+    <style>
+      .fp-room {
+        fill: rgba(197,185,168,0.08);
+        stroke: #c5b9a8;
+        stroke-width: 1.2;
+        cursor: pointer;
+        transition: fill 0.35s ease, stroke 0.35s ease, stroke-width 0.3s ease;
+        stroke-dasharray: 2000;
+        stroke-dashoffset: 0;
+      }
+      .fp-room:hover { fill: rgba(197,185,168,0.18); stroke: #b8924a; }
+      .fp-room.active { fill: rgba(201,169,110,0.15); stroke: #b8924a; stroke-width: 2; }
+      .fp-room.drawing { animation: fpDraw 0.72s cubic-bezier(0.4,0,0.2,1) forwards; }
+      @keyframes fpDraw {
+        from { stroke-dashoffset: var(--fp-len, 1000); }
+        to   { stroke-dashoffset: 0; }
+      }
+      .fp-num {
+        font-family: 'Inter', sans-serif;
+        font-size: 7px;
+        fill: rgba(197,185,168,0.55);
+        letter-spacing: 0.08em;
+      }
+      .fp-lbl {
+        font-family: 'Inter', sans-serif;
+        font-size: 7.5px;
+        fill: rgba(74,68,64,0.55);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-anchor: middle;
+        dominant-baseline: middle;
+        pointer-events: none;
+        transition: fill 0.3s;
+      }
+      .fp-lbl.active { fill: #b8924a; }
+      .fp-corridor {
+        fill: rgba(197,185,168,0.04);
+        stroke: #c5b9a8;
+        stroke-width: 0.6;
+        stroke-dasharray: 3 5;
+      }
+      .fp-level {
+        font-family: 'Inter', sans-serif;
+        font-size: 7px;
+        fill: rgba(74,68,64,0.35);
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+      }
+    </style>
+  </defs>
+
+  <!-- Floor label -->
+  <text class="fp-level" x="10" y="295">Ground Floor · 28 Bristol Road</text>
+  <text class="fp-level" x="710" y="295">Second Floor →</text>
+
+  <!-- Corridor / hallway spine -->
+  <rect class="fp-corridor" x="226" y="10" width="74" height="270" rx="0"/>
+
+  <!-- Rear open corridor -->
+  <rect class="fp-corridor" x="308" y="148" width="160" height="132" rx="0"/>
+
+  <!-- 01 · Living Room — front left -->
+  <rect class="fp-room" id="fp-living" data-room-id="r-living" x="10" y="10" width="208" height="130" rx="1"/>
+  <text class="fp-num" x="18" y="25">01</text>
+  <text class="fp-lbl" data-room="r-living" x="114" y="77">Living Room</text>
+
+  <!-- 00 · Entry Hall — centre-left, tall -->
+  <rect class="fp-room" id="fp-entry" data-room-id="r-entry" x="226" y="10" width="74" height="270" rx="1"/>
+  <text class="fp-num" x="234" y="25">00</text>
+  <text class="fp-lbl" data-room="r-entry" x="263" y="148" style="writing-mode:tb; text-anchor:middle; letter-spacing:0.18em;">Entry Hall</text>
+
+  <!-- 02 · Home Office — front right of entry -->
+  <rect class="fp-room" id="fp-office" data-room-id="r-office" x="308" y="10" width="162" height="130" rx="1"/>
+  <text class="fp-num" x="316" y="25">02</text>
+  <text class="fp-lbl" data-room="r-office" x="389" y="77">Home Office</text>
+
+  <!-- 03 · Chef's Kitchen — rear centre-right -->
+  <rect class="fp-room" id="fp-kitchen" data-room-id="r-kitchen" x="478" y="10" width="170" height="130" rx="1"/>
+  <text class="fp-num" x="486" y="25">03</text>
+  <text class="fp-lbl" data-room="r-kitchen" x="563" y="77">Chef's Kitchen</text>
+
+  <!-- 04 · Kitchen & Dining — rear right, tall -->
+  <rect class="fp-room" id="fp-dining" data-room-id="r-dining" x="656" y="10" width="154" height="270" rx="1"/>
+  <text class="fp-num" x="664" y="25">04</text>
+  <text class="fp-lbl" data-room="r-dining" x="733" y="120">Kitchen &amp;</text>
+  <text class="fp-lbl" data-room="r-dining" x="733" y="135">Dining</text>
+
+  <!-- 05 · Kitchen + Living — rear left, open plan -->
+  <rect class="fp-room" id="fp-family" data-room-id="r-family" x="10" y="148" width="208" height="132" rx="1"/>
+  <text class="fp-num" x="18" y="163">05</text>
+  <text class="fp-lbl" data-room="r-family" x="114" y="217">Kitchen + Living</text>
+
+  <!-- 06 · Family Room extension — rear mid -->
+  <rect class="fp-room" id="fp-fk" data-room-id="r-fk" x="478" y="148" width="170" height="132" rx="1"/>
+  <text class="fp-num" x="486" y="163">06</text>
+  <text class="fp-lbl" data-room="r-fk" x="563" y="217">Family Room</text>
+
+  <!-- Structural walls / door openings (decorative) -->
+  <!-- Door from entry to living -->
+  <line x1="226" y1="80" x2="226" y2="100" stroke="#FAFAF8" stroke-width="2"/>
+  <!-- Door from entry to office -->
+  <line x1="300" y1="62" x2="300" y2="82" stroke="#FAFAF8" stroke-width="2"/>
+  <!-- Door from kitchen to dining -->
+  <line x1="656" y1="55" x2="656" y2="75" stroke="#FAFAF8" stroke-width="2"/>
+  <!-- Door from family to kitchen+living -->
+  <line x1="478" y1="195" x2="478" y2="215" stroke="#FAFAF8" stroke-width="2"/>
+
+  <!-- Compass / scale indicator -->
+  <g transform="translate(790,28)" opacity="0.4">
+    <circle cx="0" cy="0" r="10" fill="none" stroke="#c5b9a8" stroke-width="0.8"/>
+    <text x="0" y="4" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#c5b9a8">N</text>
+    <line x1="0" y1="-5" x2="0" y2="-10" stroke="#c5b9a8" stroke-width="0.8"/>
+  </g>
+</svg>

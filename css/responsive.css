@@ -31,6 +31,10 @@ RESPONSIVE — 1024px (large tablet / small laptop)
   /* ── Nav: hamburger ── */
   #nav { padding: 20px 20px; }
   #nav.scrolled { padding: 14px 20px; }
+  /* When menu is open, lift nav above the drawer so close button stays visible */
+  #nav.menu-open { z-index: 210; }
+  /* Hide logo when drawer is open — only the close button matters */
+  #nav.menu-open .nav-logo { opacity: 0; pointer-events: none; transition: opacity 0.2s; }
   .nav-links { display: none; }
   .nav-burger {
     display: flex;
@@ -40,7 +44,8 @@ RESPONSIVE — 1024px (large tablet / small laptop)
     border: none;
     cursor: pointer;
     padding: 4px;
-    z-index: 210;
+    position: relative;
+    z-index: 1;
   }
   .nav-burger span {
     display: block;
@@ -49,7 +54,10 @@ RESPONSIVE — 1024px (large tablet / small laptop)
     background: rgba(240,235,227,0.85);
     transition: background 0.3s, transform 0.3s, opacity 0.3s;
   }
-  #nav.light-nav .nav-burger span { background: var(--text); }
+  /* Burger becomes dark when nav is scrolled (white frosted bg) */
+  #nav.scrolled .nav-burger span { background: var(--text); }
+  /* Close icon is always dark since it shows above the white drawer */
+  #nav.menu-open .nav-burger span { background: var(--text) !important; }
   #nav.menu-open .nav-burger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
   #nav.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
   #nav.menu-open .nav-burger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
@@ -87,16 +95,48 @@ RESPONSIVE — 1024px (large tablet / small laptop)
   .nav-mobile-menu a:last-child { border-bottom: none; }
   .nav-mobile-menu a:hover { color: var(--accent); }
 
+  /* ── Nav CTA: hide on mobile ── */
+  .nav-cta { display: none !important; }
+  /* ── Hero CTA: show on mobile ── */
+  .hero-cta-mobile { display: inline-block !important; }
+
   /* ── Hero ── */
   .section { padding: 64px 20px; }
   #hero { min-height: 100svh; }
-  .hero-content { padding: 0 20px 44px; }
-  .hero-title { font-size: clamp(36px, 10vw, 56px); white-space: normal; }
+  .hero-content { padding: 0 20px calc(14vh + 36px); display: flex; flex-direction: column; }
+  .hero-title { font-size: clamp(34px, 9vw, 48px); white-space: normal; line-height: 1; }
   .hero-sub { font-size: 14px; max-width: 100%; }
-  .hero-stats { flex-wrap: wrap; gap: 0; }
-  .stat { padding-right: 24px; margin-right: 24px; margin-bottom: 12px; }
+  /* Tighten vertical gaps between hero elements on mobile */
+  #hTitle { margin-bottom: 10px !important; }
+  #hSub   { margin-bottom: 22px !important; }
+  /* Eyebrow: strong text-shadow for legibility — no dark pill */
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(240,235,227,0.88);
+    text-shadow: 0 1px 16px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6);
+    margin-bottom: 12px;
+    display: block;
+  }
+  /* Mobile CTA: full-width, text centered, slight accent on border */
+  .hero-cta-mobile {
+    width: 100%;
+    text-align: center;
+    padding: 16px 24px;
+    border-color: rgba(184,146,74,0.55);
+    color: rgba(240,235,227,0.92);
+    box-sizing: border-box;
+    margin-bottom: 28px;
+  }
+  /* 2×2 stat grid on mobile */
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .stat { padding: 20px 0; margin: 0; border-right: none; border-bottom: 1px solid rgba(196,160,106,0.15); }
+  .stat:nth-child(odd) { border-right: 1px solid rgba(196,160,106,0.15); padding-right: 20px; }
+  .stat:nth-child(even) { padding-left: 20px; }
+  .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
   .stat-val { font-size: clamp(24px, 7vw, 36px); }
-  .live-pill { bottom: 72px; right: 16px; padding: 9px 14px 9px 12px; font-size: 11px; }
+  /* Live pill: move above the 2-row stat grid on mobile */
+  .live-pill { bottom: auto; top: 52px; right: 16px; padding: 9px 14px 9px 12px; font-size: 11px; }
   .scroll-arrow { right: 20px; bottom: 28px; }
   .hero-frame { display: none; }
 
@@ -117,6 +157,7 @@ RESPONSIVE — 1024px (large tablet / small laptop)
   .amenity { border-right: none !important; }
 
   /* ── Materials ── */
+  .mat-top { grid-template-columns: 1fr; gap: 40px; margin-bottom: 40px; }
   .mat-gallery { grid-template-columns: repeat(2, 1fr) !important; grid-template-rows: auto !important; }
   .mat-thumb:nth-child(1) { grid-column: span 2; grid-row: span 1; }
 
@@ -128,28 +169,41 @@ RESPONSIVE — 1024px (large tablet / small laptop)
   /* ── Tour ── */
   .tour-header { padding: 52px 20px 32px; }
   .tour-title-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .tour-hint { text-align: left; }
+  .pano-embed-wrap { padding: 0 20px 52px; }
+  .pano-embed { height: 68vh; min-height: 420px; }
   .pano-wrap { height: 56vw; min-height: 260px; }
   .tour-nav { padding: 0 20px; }
   .tnav-btn { padding: 9px 14px; font-size: 10px; }
   .stone-table { margin: 0 20px; width: calc(100% - 40px); }
 
   /* ── Location ── */
-  .loc-layout { grid-template-columns: 1fr; gap: 32px; margin-top: 32px; }
+  .loc-layout { grid-template-columns: 1fr; gap: 32px; margin-top: 40px; }
   #map-box { height: 340px; }
-  .prox-groups { flex-direction: row; flex-wrap: wrap; gap: 0 48px; }
+  .prox-groups { flex-direction: column; gap: 40px; margin-top: 8px; }
+  .prox-group-lbl { margin-top: 4px; margin-bottom: 14px; }
   .prox-groups > div { flex: 1; min-width: 200px; }
 
   /* ── Inquire ── */
   .inq-layout { grid-template-columns: 1fr; gap: 40px; }
-  .form-row { grid-template-columns: 1fr; }
+  /* Keep form fields in 2-col pairs at 768px, only collapse at 480px */
   .f-field.wide { grid-column: span 1; }
 
   /* ── Footer ── */
-  footer { padding: 0 20px 28px; }
-  .footer-top { grid-template-columns: 1fr; gap: 28px; }
-  .footer-agent { min-width: 0; }
-  .footer-bot { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .footer-links { flex-wrap: wrap; gap: 12px 16px; }
+  footer { padding: 64px 20px 40px; }
+  .foot-main { grid-template-columns: 1fr; gap: 0; padding-bottom: 52px; }
+  .foot-col { padding-right: 0; }
+  .foot-col-nav, .foot-col-agent {
+    padding-left: 0; padding-right: 0;
+    border-left: none;
+    border-top: 1px solid rgba(240,235,227,0.07);
+    padding-top: 44px;
+    margin-top: 44px;
+  }
+  .foot-col-property { border-top: none; padding-top: 0; }
+  .foot-address { font-size: clamp(36px, 11vw, 52px); }
+  .foot-bot { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .foot-legal { flex-wrap: wrap; gap: 12px 20px; }
 
   /* ── Lightbox ── */
   #lb-prev { left: 12px; }
@@ -164,8 +218,8 @@ RESPONSIVE — 1024px (large tablet / small laptop)
   .section { padding: 52px 16px; }
   #nav { padding: 18px 16px; }
   #nav.scrolled { padding: 12px 16px; }
-  .hero-content { padding: 0 16px 36px; }
-  .hero-title { font-size: clamp(32px, 11vw, 48px); }
+  .hero-content { padding: 0 16px calc(14vh + 32px); }
+  .hero-title { font-size: clamp(30px, 10vw, 42px); }
   .hero-stats { gap: 0; }
   .stat { padding-right: 16px; margin-right: 16px; }
   .stat-val { font-size: 26px; }
@@ -188,9 +242,13 @@ RESPONSIVE — 1024px (large tablet / small laptop)
   .route-times { gap: 0; }
   .route-time-item { padding: 0 10px; }
 
+  /* At 480px, collapse form rows to 1-col */
+  .form-row { grid-template-columns: 1fr; }
   .inq-layout { gap: 32px; }
   footer { padding: 0 16px 24px; }
   .foot-address { font-size: clamp(22px, 8vw, 32px); }
   .footer-agent { flex-direction: column; align-items: flex-start; gap: 12px; }
   .prop-callout { padding: 10px 16px; gap: 8px; }
+  /* Hero stats: single col on very small screens */
+  .hero-stats { grid-template-columns: 1fr 1fr; }
 }

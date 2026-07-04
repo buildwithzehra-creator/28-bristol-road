@@ -26,8 +26,8 @@
   border-bottom: 1px solid var(--border-dim);
   gap: 16px;
 }
-.stone-room { font-size: 11px; color: var(--text-dim); letter-spacing: 0.04em; white-space: nowrap; }
-.stone-name { font-family: var(--serif); font-size: 14px; text-align: right; }
+.stone-room { font-size: 11px; color: var(--text-dim); letter-spacing: 0.04em; white-space: nowrap; flex-shrink: 0; }
+.stone-name { font-family: var(--serif); font-size: 14px; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 
 .mat-gallery {
   display: grid;

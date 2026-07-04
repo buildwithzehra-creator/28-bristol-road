@@ -4,7 +4,6 @@ const heroSection = document.getElementById('hero');
 window.addEventListener('scroll', () => {
   const heroH = heroSection ? heroSection.offsetHeight : 600;
   nav.classList.toggle('scrolled', window.scrollY > 60);
-  nav.classList.toggle('light-nav', window.scrollY > heroH - 80);
 }, { passive: true });
 
 // ━━━━━━━━━━━━━━ MOBILE NAV ━━━━━━━━━━━━━━

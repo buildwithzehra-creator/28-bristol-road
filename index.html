@@ -9,25 +9,25 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/nav.css">
-  <link rel="stylesheet" href="css/hero.css">
-  <link rel="stylesheet" href="css/sections.css">
-  <link rel="stylesheet" href="css/details.css">
-  <link rel="stylesheet" href="css/interiors.css">
-  <link rel="stylesheet" href="css/tour.css">
-  <link rel="stylesheet" href="css/materials.css">
-  <link rel="stylesheet" href="css/location.css">
-  <link rel="stylesheet" href="css/inquire.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/preloader.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/variables.css?v=3">
+  <link rel="stylesheet" href="css/nav.css?v=3">
+  <link rel="stylesheet" href="css/hero.css?v=8">
+  <link rel="stylesheet" href="css/sections.css?v=2">
+  <link rel="stylesheet" href="css/details.css?v=2">
+  <link rel="stylesheet" href="css/interiors.css?v=2">
+  <link rel="stylesheet" href="css/tour.css?v=7">
+  <link rel="stylesheet" href="css/materials.css?v=2">
+  <link rel="stylesheet" href="css/location.css?v=3">
+  <link rel="stylesheet" href="css/inquire.css?v=2">
+  <link rel="stylesheet" href="css/footer.css?v=7">
+  <link rel="stylesheet" href="css/preloader.css?v=2">
+  <link rel="stylesheet" href="css/responsive.css?v=8">
 </head>
 <body>
 
@@ -47,8 +47,8 @@
     <li><a href="#tour">Tour</a></li>
     <li><a href="#materials">Materials</a></li>
     <li><a href="#location">Location</a></li>
-    <li><a href="#inquire">Inquire</a></li>
   </ul>
+  <a href="#inquire" class="nav-cta">Inquire</a>
   <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -61,13 +61,13 @@
   <a href="#tour"      onclick="closeMenu()">Tour</a>
   <a href="#materials" onclick="closeMenu()">Materials</a>
   <a href="#location"  onclick="closeMenu()">Location</a>
-  <a href="#inquire"   onclick="closeMenu()">Inquire</a>
 </div>
 
-<!-- ══════════ HERO ══════════ -->
-<section id="hero">
-  <div class="hero-bg" id="heroBg"></div>
-  <div class="hero-overlay"></div>
+<!-- ══════════ HERO SCROLL-SNAP EXPERIENCE ══════════ -->
+<section id="hero" class="hero-snap-experience" aria-label="28 Bristol Road video walkthrough">
+  <div class="hero-scenes" id="heroScenes">
+    <!-- Hero snap scenes are injected from HERO_ROOMS in js/hero.js. -->
+  </div>
 
   <div class="hero-frame">
     <svg id="heroSvg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
@@ -80,41 +80,7 @@
     </svg>
   </div>
 
-  <div class="hero-content">
-    <div class="h-line" id="hEyebrow">
-      <p class="hero-eyebrow">Pre-Construction &nbsp;·&nbsp; Newton, Massachusetts</p>
-    </div>
-    <div class="h-line" id="hTitle" style="margin-bottom:24px">
-      <h1 class="hero-title">28 Bristol Road</h1>
-    </div>
-    <div class="h-line" id="hSub" style="margin-bottom:52px">
-      <p class="hero-sub">A singular residence conceived as livable sculpture — where every beam, stone, and pane of glass serves both structure and art.</p>
-    </div>
-    <div class="hero-stats" id="heroStats">
-      <div class="stat">
-        <div class="stat-val">7</div>
-        <div class="stat-lbl">Bedrooms</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val">6.5</div>
-        <div class="stat-lbl">Bathrooms</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val">5,400</div>
-        <div class="stat-lbl">Sq Ft</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val">0.38 ac</div>
-        <div class="stat-lbl">Lot</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Live viewers pill -->
-  <div class="live-pill" id="livePill">
-    <span class="live-dot"></span>
-    <span class="live-pill-text"><span class="live-pill-count" id="liveCount">847</span> visits this week</span>
-  </div>
+  <div class="hero-progress-dots" id="heroProgressDots" aria-label="Hero scene navigation"></div>
 
   <div class="scroll-arrow" id="scrollArrow">
     <span>Scroll</span>
@@ -123,14 +89,25 @@
 </section>
 
 <!-- ══════════ PROPERTY CALLOUT STRIP ══════════ -->
-<div class="prop-callout">
-  <span class="prop-callout-text">28 Bristol Road</span>
-  <span class="prop-callout-sep"></span>
-  <span class="prop-callout-text">Pre-Construction · Newton, Massachusetts</span>
-  <span class="prop-callout-sep"></span>
-  <span class="prop-callout-text">Est. completion 2026</span>
-  <span class="prop-callout-sep"></span>
-  <span class="prop-callout-text">Available exclusively during pre-construction</span>
+<div class="prop-callout" aria-hidden="true">
+  <div class="prop-callout-track">
+    <span class="prop-callout-text">28 Bristol Road</span>
+    <span class="prop-callout-sep">◆</span>
+    <span class="prop-callout-text">Pre-Construction · Newton, Massachusetts</span>
+    <span class="prop-callout-sep">◆</span>
+    <span class="prop-callout-text">Est. completion 2026</span>
+    <span class="prop-callout-sep">◆</span>
+    <span class="prop-callout-text">Available exclusively during pre-construction</span>
+    <span class="prop-callout-sep">◆</span>
+    <span class="prop-callout-text">28 Bristol Road</span>
+    <span class="prop-callout-sep">◆</span>
+    <span class="prop-callout-text">Pre-Construction · Newton, Massachusetts</span>
+    <span class="prop-callout-sep">◆</span>
+    <span class="prop-callout-text">Est. completion 2026</span>
+    <span class="prop-callout-sep">◆</span>
+    <span class="prop-callout-text">Available exclusively during pre-construction</span>
+    <span class="prop-callout-sep">◆</span>
+  </div>
 </div>
 
 <!-- ══════════ VISION STRIP ══════════ -->
@@ -197,8 +174,8 @@
       <div class="amenity">
         <span class="amenity-num">02</span>
         <div>
-          <h4>Attached 2-Car Garage</h4>
-          <p>700 sq ft attached garage with EV charging station. Direct mudroom entry with built-in bench and custom cubbies. Stone floor entry.</p>
+          <h4>Attached 3-Car Garage</h4>
+          <p>Three-bay attached garage with EV charging station. Direct mudroom entry with built-in bench and custom cubbies. Stone floor entry.</p>
         </div>
       </div>
       <div class="amenity">
@@ -212,7 +189,7 @@
         <span class="amenity-num">04</span>
         <div>
           <h4>Lower Level</h4>
-          <p>Recreation room (~540 sq ft) · wet bar with Noce Cotto cabinetry and vertical LED · Sub-Zero beverage center · Napoleon Astound 50" electric fireplace · dedicated laundry room.</p>
+          <p>±2,110 sq ft finished lower level: media lounge · home gym · yoga studio · sauna · rec room with wet bar (Noce Cotto cabinetry, Sub-Zero beverage center) · Napoleon Astound 50" electric fireplace.</p>
         </div>
       </div>
       <div class="amenity">
@@ -236,33 +213,33 @@
 <!-- ══════════ INTERIOR GALLERY ══════════ -->
 <div id="interiors">
   <div class="interiors-row rev">
-    <div class="interior-panel">
-      <img src="images/living-room.jpg" alt="Living Room" loading="lazy">
+    <div class="interior-panel" data-tilt data-tilt-max="4" data-tilt-speed="500" data-tilt-glare="true" data-tilt-max-glare="0.08" data-tilt-scale="1.025" data-tilt-perspective="1200">
+      <img src="images/living.jpg" alt="Living Room" loading="lazy">
       <span class="interior-panel-label">Living Room</span>
     </div>
-    <div class="interior-panel">
+    <div class="interior-panel" data-tilt data-tilt-max="4" data-tilt-speed="500" data-tilt-glare="true" data-tilt-max-glare="0.08" data-tilt-scale="1.025" data-tilt-perspective="1200">
       <img src="images/kitchen.jpg" alt="Chef's Kitchen" loading="lazy">
       <span class="interior-panel-label">Chef's Kitchen</span>
     </div>
   </div>
   <div class="interiors-row flipped rev">
-    <div class="interior-panel">
-      <img src="images/bathroom.jpg" alt="Primary Bathroom" loading="lazy">
+    <div class="interior-panel" data-tilt data-tilt-max="4" data-tilt-speed="500" data-tilt-glare="true" data-tilt-max-glare="0.08" data-tilt-scale="1.025" data-tilt-perspective="1200">
+      <img src="images/master-bath.jpg" alt="Primary Bathroom" loading="lazy">
       <span class="interior-panel-label">Primary Bathroom</span>
     </div>
-    <div class="interior-panel">
-      <img src="images/bedroom.jpg" alt="Primary Bedroom" loading="lazy">
+    <div class="interior-panel" data-tilt data-tilt-max="4" data-tilt-speed="500" data-tilt-glare="true" data-tilt-max-glare="0.08" data-tilt-scale="1.025" data-tilt-perspective="1200">
+      <img src="images/master-bedroom.jpg" alt="Primary Bedroom" loading="lazy">
       <span class="interior-panel-label">Primary Bedroom</span>
     </div>
   </div>
   <div class="interiors-row flipped rev">
-    <div class="interior-panel">
+    <div class="interior-panel" data-tilt data-tilt-max="4" data-tilt-speed="500" data-tilt-glare="true" data-tilt-max-glare="0.08" data-tilt-scale="1.025" data-tilt-perspective="1200">
       <img src="images/entry-hall.jpg" alt="Entry Hall" loading="lazy">
       <span class="interior-panel-label">Entry Hall</span>
     </div>
-    <div class="interior-panel">
-      <img src="images/road-view.jpg" alt="Street View" loading="lazy">
-      <span class="interior-panel-label">Street View</span>
+    <div class="interior-panel" data-tilt data-tilt-max="4" data-tilt-speed="500" data-tilt-glare="true" data-tilt-max-glare="0.08" data-tilt-scale="1.025" data-tilt-perspective="1200">
+      <img src="images/family-kitchen.jpg" alt="Family room and kitchen" loading="lazy">
+      <span class="interior-panel-label">Family Room &amp; Kitchen</span>
     </div>
   </div>
 </div>
@@ -273,29 +250,20 @@
     <p class="section-label">Digital Walkthrough</p>
     <div class="tour-title-row">
       <h2 class="section-title">Move through<br>every space</h2>
-      <p class="tour-hint">Drag left or right to explore each 360° panorama. Select a room below to navigate between spaces across all four levels.</p>
+      <p class="tour-hint">Explore the live 360 walkthrough, beginning at the entry hallway.</p>
     </div>
   </div>
 
-  <div class="pano-wrap" id="panoWrap">
-    <!-- Room activity chip -->
-    <div class="room-activity" id="roomActivity">
-      <span class="room-activity-dot"></span>
-      <span class="room-activity-text"><span class="room-activity-count" id="roomCount">12</span> people in this room now</span>
-    </div>
-    <div class="pano-drag-cue" id="panoCue">
-      <div class="drag-ring">
-        <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
-          <path d="M2 8H20M2 8L6 4M2 8L6 12M20 8L16 4M20 8L16 12" stroke="rgba(240,235,227,0.7)" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <span class="drag-label">Drag to explore</span>
-    </div>
-    <div class="pano-progress" id="panoProgress"></div>
-    <!-- Scenes injected by JS -->
+  <div class="pano-embed-wrap rev rev-d1">
+    <iframe
+      class="pano-embed"
+      src="https://tour.panoee.net/6a435953a358999cded1c899/entery-hall"
+      title="28 Bristol Road 360 digital walkthrough"
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; xr-spatial-tracking"
+      allowfullscreen>
+    </iframe>
   </div>
-
-  <div class="tour-nav" id="tourNav"></div>
 </section>
 
 <!-- ══════════ MATERIALS ══════════ -->
@@ -328,16 +296,16 @@
   </div>
 
   <div class="mat-gallery rev rev-d1" id="matGallery">
-    <div class="mat-thumb" data-idx="0"><img src="images/mat-1.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
-    <div class="mat-thumb" data-idx="1"><img src="images/mat-2.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
-    <div class="mat-thumb" data-idx="2"><img src="images/mat-3.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
-    <div class="mat-thumb" data-idx="3"><img src="images/mat-4.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
-    <div class="mat-thumb" data-idx="4"><img src="images/mat-5.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
-    <div class="mat-thumb" data-idx="5"><img src="images/mat-6.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
-    <div class="mat-thumb" data-idx="6"><img src="images/mat-7.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
-    <div class="mat-thumb" data-idx="7"><img src="images/mat-8.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
-    <div class="mat-thumb" data-idx="8"><img src="images/mat-9.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
-    <div class="mat-thumb" data-idx="9"><img src="images/mat-10.png" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="0" data-tilt data-tilt-max="7" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.12" data-tilt-scale="1.04"><img src="images/mat-1.jpg" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="1" data-tilt data-tilt-max="7" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.12" data-tilt-scale="1.04"><img src="images/mat-2.jpg" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="2" data-tilt data-tilt-max="7" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.12" data-tilt-scale="1.04"><img src="images/mat-3.jpg" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="3" data-tilt data-tilt-max="7" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.12" data-tilt-scale="1.04"><img src="images/mat-4.jpg" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="4" data-tilt data-tilt-max="7" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.12" data-tilt-scale="1.04"><img src="images/mat-5.jpg" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="5" data-tilt data-tilt-max="7" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.12" data-tilt-scale="1.04"><img src="images/mat-6.jpg" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="6" data-tilt data-tilt-max="7" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.12" data-tilt-scale="1.04"><img src="images/mat-7.jpg" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="7" data-tilt data-tilt-max="7" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.12" data-tilt-scale="1.04"><img src="images/mat-8.jpg" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="8" data-tilt data-tilt-max="7" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.12" data-tilt-scale="1.04"><img src="images/mat-9.jpg" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
+    <div class="mat-thumb" data-idx="9" data-tilt data-tilt-max="7" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.12" data-tilt-scale="1.04"><img src="images/mat-10.jpg" alt="Finish detail" loading="lazy"><div class="mat-thumb-overlay"></div></div>
   </div>
 </section>
 
@@ -418,8 +386,8 @@
         <div class="prox-item" data-lat="42.3282" data-lng="-71.1999" data-name="Newton Centre T Station" data-addr="1266 Centre St, Newton Centre, MA 02459 · Green Line D">
           <span class="prox-name">Newton Centre T (Green Line D)</span><span class="prox-dist">0.5 mi</span>
         </div>
-        <div class="prox-item" data-lat="42.3480" data-lng="-71.1680" data-name="Mass Pike (I-90) On-Ramp" data-addr="Newton, MA — access via Route 9">
-          <span class="prox-name">Mass Pike (I-90)</span><span class="prox-dist">2.5 mi</span>
+        <div class="prox-item" data-lat="42.3656" data-lng="-71.0096" data-name="Boston Logan International Airport" data-addr="1 Harborside Dr, Boston, MA 02128 · Terminal A–E">
+          <span class="prox-name">Boston Logan Airport</span><span class="prox-dist">14 mi</span>
         </div>
         <div class="prox-item" data-lat="42.3554" data-lng="-71.0640" data-name="South Station" data-addr="700 Atlantic Ave, Boston, MA 02110 · Commuter Rail">
           <span class="prox-name">South Station (Commuter Rail)</span><span class="prox-dist">8.5 mi</span>
@@ -441,7 +409,7 @@
 
       <div class="inq-scarcity">
         <span class="inq-dot"></span>
-        <span class="inq-scarcity-txt">Only <strong>5 inquiries</strong> accepted at this stage</span>
+        <span class="inq-scarcity-txt">Custom finish selections are available <strong>only during pre-construction</strong></span>
       </div>
 
       <p class="inq-lead">Pre-construction access unlocks custom finish selections and priority positioning — advantages that close permanently at completion.</p>
@@ -458,30 +426,32 @@
         <div class="form-row">
           <div class="f-field">
             <label for="fn">First Name *</label>
-            <input type="text" id="fn" placeholder="Alexandra" required>
+            <input type="text" id="fn" name="firstName" autocomplete="given-name" placeholder="Alexandra" required>
           </div>
           <div class="f-field">
             <label for="ln">Last Name *</label>
-            <input type="text" id="ln" placeholder="Hartley" required>
+            <input type="text" id="ln" name="lastName" autocomplete="family-name" placeholder="Hartley" required>
           </div>
         </div>
         <div class="form-row">
           <div class="f-field">
             <label for="em">Email Address *</label>
-            <input type="email" id="em" placeholder="your@email.com" required>
+            <input type="email" id="em" name="email" autocomplete="email" placeholder="your@email.com" required>
           </div>
           <div class="f-field">
             <label for="ph">Phone Number *</label>
-            <input type="tel" id="ph" placeholder="+1 (617) 000-0000" required>
+            <input type="tel" id="ph" name="phone" autocomplete="tel" placeholder="+1 (617) 000-0000" required>
           </div>
         </div>
         <div class="form-row">
           <div class="f-field wide">
             <label for="msg">Message (Optional)</label>
-            <textarea id="msg" placeholder="I'm interested in learning more about the pre-construction opportunity at 28 Bristol Road…"></textarea>
+            <textarea id="msg" name="message" placeholder="I'm interested in learning more about the pre-construction opportunity at 28 Bristol Road…"></textarea>
           </div>
         </div>
+        <input type="text" id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0">
         <button type="submit" class="form-btn">Request Private Access</button>
+        <p class="form-err" id="formErr" style="display:none;font-size:12px;color:#A0522D;line-height:1.6">Something went wrong sending your inquiry. Please try again, or contact us directly at <a href="tel:6178751914" style="color:inherit">(617) 875-1914</a> or <a href="mailto:aurel.garban@gibsonsir.com" style="color:inherit">aurel.garban@gibsonsir.com</a>.</p>
         <p class="form-note">Your inquiry is strictly confidential. A member of the Garban Group will respond as soon as possible.</p>
       </form>
       <div class="form-ok" id="formOk">
@@ -494,37 +464,68 @@
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
-  <div class="footer-top">
-    <div class="footer-property">
-      <p class="foot-eyebrow">Pre-construction &nbsp;·&nbsp; Newton, Massachusetts</p>
-      <p class="foot-address">28 Bristol Road</p>
-      <p class="foot-tagline">Pre-construction single-family residence — seven bedrooms, six and a half bathrooms, 5,400 sq ft across four levels.</p>
+  <div class="foot-main">
+
+    <!-- Col 1: Property -->
+    <div class="foot-col foot-col-property">
+      <p class="foot-eyebrow">Newton, Massachusetts</p>
+      <h2 class="foot-address">28 Bristol<br>Road</h2>
+      <p class="foot-tagline">Seven bedrooms · Six and a half baths<br>5,400 sq ft · Pre-construction 2026</p>
+      <a href="#inquire" class="foot-cta">Request Private Access</a>
     </div>
 
-    <div class="footer-agent">
-      <div class="agent-avatar">
-        <img src="images/agent.jpg" alt="Aurel Garban">
-      </div>
-      <div class="agent-info">
-        <p class="agent-name">Aurel Garban</p>
-        <p class="agent-title">20+ Years in Real Estate &amp; Development</p>
-        <p class="agent-brokerage">Gibson Sotheby's International Realty</p>
-        <div class="agent-contacts">
-          <a href="tel:6178751914">(617) 875-1914</a>
-          <a href="mailto:aurel.garban@gibsonsir.com">aurel.garban@gibsonsir.com</a>
+    <!-- Col 2: Navigation -->
+    <div class="foot-col foot-col-nav">
+      <p class="foot-nav-label">Explore</p>
+      <nav class="foot-nav">
+        <a href="#hero">Vision</a>
+        <a href="#details">Details</a>
+        <a href="#tour">Tour</a>
+        <a href="#materials">Materials</a>
+        <a href="#location">Location</a>
+        <a href="#inquire">Inquire</a>
+      </nav>
+    </div>
+
+    <!-- Col 3: Agent -->
+    <div class="foot-col foot-col-agent">
+      <p class="foot-nav-label">Listed by</p>
+      <div class="foot-agent">
+        <div class="foot-agent-photo">
+          <img src="images/agent.jpg" alt="Aurel Garban">
         </div>
-        <p class="agent-address">1334 Beacon St, Brookline, MA 02446</p>
+        <div class="foot-agent-info">
+          <p class="foot-agent-name">Aurel Garban</p>
+          <p class="foot-agent-title">20+ Years in Real Estate &amp; Development</p>
+          <div class="foot-agent-contacts">
+            <a href="tel:6178751914">(617) 875-1914</a>
+            <a href="mailto:aurel.garban@gibsonsir.com">aurel.garban@gibsonsir.com</a>
+          </div>
+          <div class="foot-agent-socials">
+            <!-- Instagram -->
+            <a href="https://instagram.com/aurelgarban" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <!-- Zillow icon -->
+            <a href="https://www.zillow.com/profile/Garban" target="_blank" rel="noopener" aria-label="Zillow">
+              <svg width="18" height="20" viewBox="0 0 23.283 25.577" fill="currentColor" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" xmlns="http://www.w3.org/2000/svg"><path fill-rule="nonzero" d="m15.743 6.897c.117-.026.169.013.24.091.403.448 1.691 2.021 2.041 2.45.065.078.02.163-.032.208-2.6 2.028-5.493 4.901-7.105 6.955-.032.046-.006.046.02.039 2.808-1.209 9.405-3.14 12.376-3.679v-3.763l-11.628-9.198-11.648 9.191v4.114c3.607-2.144 11.953-5.466 15.736-6.408z"/><path fill-rule="nonzero" d="m6.279 22.705c-.097.052-.176.039-.254-.039l-2.171-2.587c-.058-.072-.065-.111.013-.221 1.678-2.457 5.103-6.286 7.287-7.904.039-.026.026-.059-.02-.039-2.275.741-8.742 3.523-11.134 4.875v8.787h23.277v-8.462c-3.172.539-12.675 3.367-16.998 5.59z"/></svg>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
 
-  <div class="footer-bot">
+  <div class="foot-rule"></div>
+
+  <div class="foot-bot">
     <span>© 2026 The Garban Group. All rights reserved.</span>
-    <div class="footer-links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Use</a>
-      <a href="#">Fair Housing Notice</a>
-      <a href="#">Equal Housing Opportunity</a>
+    <div class="foot-legal">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Fair Housing</a>
+      <a href="#">Equal Housing</a>
     </div>
   </div>
 </footer>
@@ -539,16 +540,17 @@
 
 <!-- External deps -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
 
 <!-- App scripts — order matters -->
-<script src="js/preloader.js"></script>
-<script src="js/nav.js"></script>
-<script src="js/hero.js"></script>
-<script src="js/animations.js"></script>
-<script src="js/tour.js"></script>
-<script src="js/map.js"></script>
-<script src="js/gallery.js"></script>
-<script src="js/form.js"></script>
+<script src="js/preloader.js?v=2"></script>
+<script src="js/nav.js?v=2"></script>
+<script src="js/hero.js?v=7"></script>
+<script src="js/animations.js?v=3"></script>
+<script src="js/tour.js?v=4"></script>
+<script src="js/map.js?v=3"></script>
+<script src="js/gallery.js?v=2"></script>
+<script src="js/form.js?v=3"></script>
 
 </body>
 </html>
