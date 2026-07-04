@@ -28,7 +28,7 @@ const HERO_ROOMS = [
     copy: 'A singular residence conceived as livable sculpture — where every beam, stone, and pane of glass serves both structure and art.',
     label: 'Exterior',
     roomKey: 'Exterior Placeholder',
-    poster: 'images/hero.jpg',
+    poster: 'images/exterior-02.jpg',
     videoFile: '',
     preload: 'auto',
     kenBurns: { s0: 1.06, s1: 1.095, tx: '-0.45%', ty: '-0.25%' },
