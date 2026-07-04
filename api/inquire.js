@@ -4,9 +4,13 @@
 // Required env var: RESEND_API_KEY  (create at https://resend.com — free tier: 100/day)
 // Optional env vars: INQUIRY_TO, INQUIRY_CC, INQUIRY_FROM
 
-const TO = process.env.INQUIRY_TO || 'aurel.garban@gibsonsir.com';
-const CC = process.env.INQUIRY_CC || 'zzakcali@gmail.com';
-const FROM = process.env.INQUIRY_FROM || '28 Bristol Road <inquiries@28bristolroad.com>';
+// TEMPORARY sandbox config until 28bristolroad.com is verified in Resend:
+// sandbox can only send from onboarding@resend.dev to the account owner's inbox.
+// After domain verification set INQUIRY_TO=aurel.garban@gibsonsir.com,
+// INQUIRY_CC=zzakcali@gmail.com, INQUIRY_FROM='28 Bristol Road <inquiries@28bristolroad.com>' in Vercel.
+const TO = process.env.INQUIRY_TO || 'zzakcali@gmail.com';
+const CC = process.env.INQUIRY_CC || '';
+const FROM = process.env.INQUIRY_FROM || '28 Bristol Road <onboarding@resend.dev>';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -59,7 +63,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         from: FROM,
         to: [TO],
-        cc: [CC],
+        ...(CC ? { cc: [CC] } : {}),
         reply_to: email,
         subject: `New inquiry — ${firstName} ${lastName} · 28 Bristol Road`,
         html,
