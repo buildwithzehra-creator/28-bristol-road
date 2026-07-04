@@ -1,16 +1,15 @@
 // ━━━━━━━━━━━━━━ INQUIRY ENDPOINT ━━━━━━━━━━━━━━
-// Serverless function (Vercel/Netlify-compatible). On every form submission,
-// sends an email notification to the listing agent (+ CC) via the Resend API.
-// Required env var: RESEND_API_KEY  (create at https://resend.com — free tier: 100/day)
-// Optional env vars: INQUIRY_TO, INQUIRY_CC, INQUIRY_FROM
+// Serverless function (Vercel). On every form submission, sends an email
+// notification to the listing agent (+ CC) through the owner's Gmail via SMTP.
+// Required env vars (set in Vercel → Settings → Environment Variables):
+//   GMAIL_USER          — the Gmail address that sends the notification
+//   GMAIL_APP_PASSWORD  — 16-char app password from myaccount.google.com/apppasswords
+// Optional: INQUIRY_TO, INQUIRY_CC
 
-// TEMPORARY sandbox config until 28bristolroad.com is verified in Resend:
-// sandbox can only send from onboarding@resend.dev to the account owner's inbox.
-// After domain verification set INQUIRY_TO=aurel.garban@gibsonsir.com,
-// INQUIRY_CC=zzakcali@gmail.com, INQUIRY_FROM='28 Bristol Road <inquiries@28bristolroad.com>' in Vercel.
-const TO = process.env.INQUIRY_TO || 'zzakcali@gmail.com';
-const CC = process.env.INQUIRY_CC || '';
-const FROM = process.env.INQUIRY_FROM || '28 Bristol Road <onboarding@resend.dev>';
+import nodemailer from 'nodemailer';
+
+const TO = process.env.INQUIRY_TO || 'aurel.garban@gibsonsir.com';
+const CC = process.env.INQUIRY_CC || 'zzakcali@gmail.com';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -54,30 +53,28 @@ export default async function handler(req, res) {
     </div>`;
 
   try {
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
       },
-      body: JSON.stringify({
-        from: FROM,
-        to: [TO],
-        ...(CC ? { cc: [CC] } : {}),
-        reply_to: email,
-        subject: `New inquiry — ${firstName} ${lastName} · 28 Bristol Road`,
-        html,
-      }),
     });
 
-    if (!r.ok) {
-      const detail = await r.text();
-      console.error('Resend error:', detail);
-      return res.status(502).json({ ok: false, error: 'Email delivery failed' });
-    }
+    await transporter.sendMail({
+      from: `"28 Bristol Road" <${process.env.GMAIL_USER}>`,
+      to: TO,
+      cc: CC,
+      replyTo: email,
+      subject: `New inquiry — ${firstName} ${lastName} · 28 Bristol Road`,
+      html,
+    });
+
     return res.status(200).json({ ok: true });
   } catch (err) {
-    console.error('Inquiry handler error:', err);
-    return res.status(500).json({ ok: false, error: 'Server error' });
+    console.error('Inquiry handler error:', err?.message || err);
+    return res.status(502).json({ ok: false, error: 'Email delivery failed' });
   }
 }
