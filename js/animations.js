@@ -1,9 +1,30 @@
 // ━━━━━━━━━━━━━━ SCROLL REVEAL ━━━━━━━━━━━━━━
-const revObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+// Premium path: GSAP staggered rise on a soft ease (Framer-style).
+// Fallback path: original IntersectionObserver class toggle.
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-document.querySelectorAll('.rev').forEach(el => revObs.observe(el));
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && !reduceMotion) {
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.rev').forEach(el => {
+    el.classList.add('in'); // neutralize the old CSS transition
+    // Animate the block's direct children as a stagger; fall back to the block itself
+    const targets = el.children.length > 1 ? el.children : el;
+    gsap.fromTo(targets,
+      { opacity: 0, y: 34 },
+      {
+        opacity: 1, y: 0,
+        duration: 1.0,
+        ease: 'power3.out',
+        stagger: 0.09,
+        scrollTrigger: { trigger: el, start: 'top 84%', once: true },
+      });
+  });
+} else {
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+  document.querySelectorAll('.rev').forEach(el => revObs.observe(el));
+}
 
 // Vision strip reveal
 const visionObs = new IntersectionObserver(entries => {

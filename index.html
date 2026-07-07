@@ -17,17 +17,18 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/variables.css?v=3">
   <link rel="stylesheet" href="css/nav.css?v=3">
-  <link rel="stylesheet" href="css/hero.css?v=8">
+  <link rel="stylesheet" href="css/hero.css?v=9">
   <link rel="stylesheet" href="css/sections.css?v=2">
   <link rel="stylesheet" href="css/details.css?v=2">
   <link rel="stylesheet" href="css/interiors.css?v=2">
   <link rel="stylesheet" href="css/tour.css?v=7">
   <link rel="stylesheet" href="css/materials.css?v=2">
   <link rel="stylesheet" href="css/location.css?v=3">
-  <link rel="stylesheet" href="css/inquire.css?v=2">
+  <link rel="stylesheet" href="css/inquire.css?v=3">
   <link rel="stylesheet" href="css/footer.css?v=7">
   <link rel="stylesheet" href="css/preloader.css?v=2">
   <link rel="stylesheet" href="css/responsive.css?v=8">
+  <link rel="stylesheet" href="css/hero-scrub.css?v=2">
 </head>
 <body>
 
@@ -63,28 +64,31 @@
   <a href="#location"  onclick="closeMenu()">Location</a>
 </div>
 
-<!-- ══════════ HERO SCROLL-SNAP EXPERIENCE ══════════ -->
-<section id="hero" class="hero-snap-experience" aria-label="28 Bristol Road video walkthrough">
-  <div class="hero-scenes" id="heroScenes">
-    <!-- Hero snap scenes are injected from HERO_ROOMS in js/hero.js. -->
-  </div>
+<!-- ══════════ HERO SCROLL-SCRUB — scroll drives the camera through the space ══════════ -->
+<section id="hero" class="hero-scrub" aria-label="28 Bristol Road video walkthrough">
+  <div class="hero-scrub-pin">
+    <video id="scrubVideo" class="hero-scrub-video" src="videos/hero-scrub.mp4"
+           muted playsinline preload="auto"
+           aria-label="Cinematic walkthrough of 28 Bristol Road"></video>
+    <div class="hero-scrub-grade" aria-hidden="true"></div>
 
-  <div class="hero-frame">
-    <svg id="heroSvg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
-      <polyline points="54,54 54,130 130,130"     fill="none" stroke="rgba(196,160,106,0.28)" stroke-width="0.6"/>
-      <polyline points="1386,54 1386,130 1310,130" fill="none" stroke="rgba(196,160,106,0.28)" stroke-width="0.6"/>
-      <polyline points="54,846 54,770 130,770"     fill="none" stroke="rgba(196,160,106,0.28)" stroke-width="0.6"/>
-      <polyline points="1386,846 1386,770 1310,770" fill="none" stroke="rgba(196,160,106,0.28)" stroke-width="0.6"/>
-      <line x1="716" y1="440" x2="724" y2="440" stroke="rgba(196,160,106,0.18)" stroke-width="0.5"/>
-      <line x1="720" y1="436" x2="720" y2="444" stroke="rgba(196,160,106,0.18)" stroke-width="0.5"/>
-    </svg>
-  </div>
+    <div class="hero-scrub-content">
+      <p class="hero-eyebrow">Pre-Construction &middot; Newton, Massachusetts</p>
+      <h1 class="hero-title">28 Bristol Road</h1>
+      <div class="hero-stats in" id="heroStats">
+        <div class="stat"><div class="stat-val">7</div><div class="stat-lbl">Bedrooms</div></div>
+        <div class="stat"><div class="stat-val">6.5</div><div class="stat-lbl">Bathrooms</div></div>
+        <div class="stat"><div class="stat-val">5,400</div><div class="stat-lbl">Sq Ft</div></div>
+        <div class="stat"><div class="stat-val">0.38 ac</div><div class="stat-lbl">Lot</div></div>
+      </div>
+    </div>
 
-  <div class="hero-progress-dots" id="heroProgressDots" aria-label="Hero scene navigation"></div>
+    <div class="hero-scrub-cue" aria-hidden="true">
+      <span>Scroll to walk through</span>
+      <div class="cue-line"></div>
+    </div>
 
-  <div class="scroll-arrow" id="scrollArrow">
-    <span>Scroll</span>
-    <div class="scroll-arrow-line"></div>
+    <div class="hero-scrub-progress" aria-hidden="true"><div class="fill"></div></div>
   </div>
 </section>
 
@@ -414,14 +418,9 @@
 
       <p class="inq-lead">Pre-construction access unlocks custom finish selections and priority positioning — advantages that close permanently at completion.</p>
 
-      <ul class="inq-perks">
-        <li>Choose your own stone slabs from the curated palette</li>
-        <li>Access full architectural drawings &amp; spec documentation</li>
-        <li>Schedule a private site visit by appointment</li>
-      </ul>
     </div>
 
-    <div class="rev rev-d2">
+    <div class="rev rev-d2 inq-card">
       <form class="inq-form" id="inqForm" onsubmit="submitInquiry(event)">
         <div class="form-row">
           <div class="f-field">
@@ -538,15 +537,21 @@
   <button id="lb-next"  onclick="lbNav(1)">Next →</button>
 </div>
 
-<!-- External deps -->
+<!-- External deps.
+     NOTE: Lenis's UMD bundle also claims the global `L`, which collides with
+     Leaflet. Lenis must load BEFORE Leaflet so Leaflet ends up owning `L`
+     (Lenis stays available as `Lenis`). -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
 
 <!-- App scripts — order matters -->
 <script src="js/preloader.js?v=2"></script>
 <script src="js/nav.js?v=2"></script>
-<script src="js/hero.js?v=8"></script>
-<script src="js/animations.js?v=3"></script>
+<script src="js/hero-scrub.js?v=2"></script>
+<script src="js/animations.js?v=4"></script>
 <script src="js/tour.js?v=4"></script>
 <script src="js/map.js?v=3"></script>
 <script src="js/gallery.js?v=2"></script>
