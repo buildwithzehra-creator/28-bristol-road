@@ -4,7 +4,6 @@
 
 (function () {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
   const video = document.getElementById('scrubVideo');
   if (!video || typeof gsap === 'undefined') return;
 
@@ -21,22 +20,25 @@
     gsap.ticker.lagSmoothing(0);
   }
 
-  // ── Fallback: mobile loops the video. Desktop always gets the scrub —
-  // it's user-driven motion (nothing moves unless the visitor scrolls),
-  // so it's fine under prefers-reduced-motion; only the self-playing
-  // extras (Lenis glide, entrance stagger) are disabled for that setting. ──
-  if (isMobile) {
+  // ── Scrub runs on every device (muted+playsinline makes iOS/Android
+  // seeking work). Safety net: if metadata never arrives (broken codec,
+  // blocked load), fall back to a looping background video. ──
+  const fallbackToLoop = () => {
+    document.getElementById('hero').classList.add('scrub-fallback');
     video.muted = true;
     video.loop = true;
     video.play().catch(() => {});
-    return;
-  }
+  };
+  const metadataTimeout = setTimeout(() => {
+    if (video.readyState < 1) fallbackToLoop();
+  }, 6000);
 
   // ── Scroll-scrub ──
   const proxy = { t: 0 };          // scrub target (seconds)
   let duration = 0;
 
   function initScrub() {
+    clearTimeout(metadataTimeout);
     duration = video.duration || 5;
     video.pause();
     video.currentTime = 0;

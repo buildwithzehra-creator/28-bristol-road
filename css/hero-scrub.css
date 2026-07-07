@@ -151,13 +151,30 @@
   .hero-scrub-content .hero-stats .stat:nth-child(2n) { border-right: none; }
 }
 
-/* Mobile / reduced motion: no pin, plain looping video */
+/* Mobile: same scrub, adapted. svh units keep the pin stable while
+   Safari's address bar collapses; shorter scroll distance for thumbs. */
 @media (max-width: 768px) {
-  #hero.hero-scrub { height: 100svh; }
-  .hero-scrub-pin { position: relative; height: 100svh; }
-  .hero-scrub-content { left: 20px; bottom: 40px; right: 20px; }
+  #hero.hero-scrub { height: 280svh; }
+  .hero-scrub-pin { height: 100svh; }
+  .hero-scrub-content { left: 20px; bottom: max(40px, env(safe-area-inset-bottom, 0px) + 28px); right: 20px; }
+  .hero-scrub-content .hero-title { font-size: clamp(40px, 11vw, 64px); }
+  .hero-scrub-content .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 16px;
+    padding: 16px 4px;
+    margin-top: 20px;
+  }
+  .hero-scrub-content .hero-stats .stat { padding: 0 18px; }
+  .hero-scrub-content .hero-stats .stat:nth-child(2n) { border-right: none; }
   .hero-scrub-progress { display: none; }
 }
+
+/* JS safety net: video metadata never loaded → plain looping background */
+#hero.hero-scrub.scrub-fallback { height: 100svh; }
+#hero.hero-scrub.scrub-fallback .hero-scrub-pin { position: relative; height: 100svh; }
+#hero.hero-scrub.scrub-fallback .hero-scrub-cue,
+#hero.hero-scrub.scrub-fallback .hero-scrub-progress { display: none; }
 /* Reduced motion: the scrub stays (it's user-driven); only the
    self-playing cue animation stops. */
 @media (prefers-reduced-motion: reduce) {
