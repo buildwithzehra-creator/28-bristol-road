@@ -21,8 +21,11 @@
     gsap.ticker.lagSmoothing(0);
   }
 
-  // ── Fallback paths: mobile / reduced motion just loop the video ──
-  if (reducedMotion || isMobile) {
+  // ── Fallback: mobile loops the video. Desktop always gets the scrub —
+  // it's user-driven motion (nothing moves unless the visitor scrolls),
+  // so it's fine under prefers-reduced-motion; only the self-playing
+  // extras (Lenis glide, entrance stagger) are disabled for that setting. ──
+  if (isMobile) {
     video.muted = true;
     video.loop = true;
     video.play().catch(() => {});
@@ -93,6 +96,7 @@
 
   // ── Entrance: staggered rise for eyebrow → title → stats (Framer-style) ──
   window.addEventListener('load', () => {
+    if (reducedMotion) return; // no self-playing entrance for reduced motion
     gsap.fromTo(
       '.hero-scrub-content > *',
       { opacity: 0, y: 28 },

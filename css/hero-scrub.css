@@ -158,8 +158,8 @@
   .hero-scrub-content { left: 20px; bottom: 40px; right: 20px; }
   .hero-scrub-progress { display: none; }
 }
+/* Reduced motion: the scrub stays (it's user-driven); only the
+   self-playing cue animation stops. */
 @media (prefers-reduced-motion: reduce) {
-  #hero.hero-scrub { height: 100vh; }
-  .hero-scrub-pin { position: relative; }
   .hero-scrub-cue .cue-line::after { animation: none; }
 }
