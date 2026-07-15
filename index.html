@@ -85,12 +85,12 @@
   <a href="#location"  onclick="closeMenu()">Location</a>
 </div>
 
-<!-- ══════════ HERO — signature still (fast, reliable across all devices) ══════════ -->
-<section id="hero" class="hero-scrub scrub-fallback" aria-label="28 Bristol Road">
+<!-- ══════════ HERO SCROLL-SCRUB — scroll drives the camera through the space ══════════ -->
+<section id="hero" class="hero-scrub" aria-label="28 Bristol Road video walkthrough">
   <div class="hero-scrub-pin">
-    <img class="hero-scrub-video" src="images/aerial.jpg"
-         alt="28 Bristol Road — aerial view of the residence in Newton, Massachusetts"
-         fetchpriority="high">
+    <video id="scrubVideo" class="hero-scrub-video" src="videos/hero-scrub.mp4"
+           muted playsinline preload="auto"
+           aria-label="Cinematic walkthrough of 28 Bristol Road"></video>
     <div class="hero-scrub-grade" aria-hidden="true"></div>
 
     <div class="hero-scrub-content">
@@ -103,6 +103,13 @@
         <div class="stat"><div class="stat-val">0.38 ac</div><div class="stat-lbl">Lot</div></div>
       </div>
     </div>
+
+    <div class="hero-scrub-cue" aria-hidden="true">
+      <span>Scroll to walk through</span>
+      <div class="cue-line"></div>
+    </div>
+
+    <div class="hero-scrub-progress" aria-hidden="true"><div class="fill"></div></div>
   </div>
 </section>
 
@@ -130,8 +137,8 @@
 
 <!-- ══════════ VISION STRIP ══════════ -->
 <div id="vision-strip">
-  <img id="visionImg" src="images/family-kitchen.jpg" alt="Family room and kitchen at 28 Bristol Road" loading="lazy">
-  <p class="vision-caption">Interior perspective · 28 Bristol Road, Newton MA</p>
+  <img id="visionImg" src="images/aerial.jpg" alt="Aerial view of 28 Bristol Road" loading="lazy">
+  <p class="vision-caption">Aerial perspective · 28 Bristol Road, Newton MA</p>
 </div>
 
 <!-- ══════════ PROPERTY DETAILS ══════════ -->
@@ -278,7 +285,7 @@
       src="https://tour.panoee.net/6a435953a358999cded1c899/entery-hall"
       title="28 Bristol Road 360 digital walkthrough"
       loading="lazy"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; xr-spatial-tracking"
+      allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; xr-spatial-tracking"
       allowfullscreen>
     </iframe>
   </div>
@@ -564,10 +571,10 @@
 <!-- App scripts — order matters -->
 <script src="js/preloader.js?v=2"></script>
 <script src="js/nav.js?v=2"></script>
-<script src="js/hero-scrub.js?v=5"></script>
+<script src="js/hero-scrub.js?v=6"></script>
 <script src="js/animations.js?v=4"></script>
 <script src="js/tour.js?v=4"></script>
-<script src="js/map.js?v=3"></script>
+<script src="js/map.js?v=4"></script>
 <script src="js/gallery.js?v=2"></script>
 <script src="js/form.js?v=3"></script>
 
