@@ -50,7 +50,11 @@ function initMap() {
     { label: 'South Station',          coords: [42.3554,-71.0640], type: 'transit' },
     { label: 'Downtown Boston',        coords: [42.3601,-71.0589], type: 'transit' },
   ];
-  pois.forEach(p => L.marker(p.coords, { icon: makeLabelIcon(p.label, p.type) }).addTo(map));
+  // Keep a reference to each POI marker so we can wire tap-to-route (mobile-friendly)
+  const poiMarkers = pois.map(p => ({
+    poi: p,
+    marker: L.marker(p.coords, { icon: makeLabelIcon(p.label, p.type), riseOnHover: true }).addTo(map)
+  }));
 
   let routeLayer = null;
   let activeItem = null;
@@ -129,9 +133,39 @@ function initMap() {
   }
 
   routeClose.addEventListener('click', clearRoute);
-  document.querySelectorAll('.prox-item[data-lat]').forEach(item => {
+
+  const proxItems = [...document.querySelectorAll('.prox-item[data-lat]')];
+  proxItems.forEach(item => {
     item.addEventListener('click', () => selectPOI(item));
   });
+
+  // ── Tap a pin ON the map → same modal + route as the list (mobile-friendly) ──
+  // The list is long on mobile and the map stays pinned at the top, so make the
+  // markers themselves interactive: tapping one opens the route info panel
+  // (name + drive/walk/bike) and draws the route from 28 Bristol Road.
+  function findItemFor(coords) {
+    return proxItems.find(it =>
+      Math.abs(+it.dataset.lat - coords[0]) < 1e-4 &&
+      Math.abs(+it.dataset.lng - coords[1]) < 1e-4
+    );
+  }
+  poiMarkers.forEach(({ poi, marker }) => {
+    const item = findItemFor(poi.coords);
+    if (!item) return;
+    marker.on('click', () => selectPOI(item));
+    // Make the whole label a comfortable tap target and show it's clickable
+    if (marker._icon) {
+      marker._icon.style.cursor = 'pointer';
+      marker._icon.classList.add('poi-clickable');
+    }
+  });
+
+  // Ensure the labels receive taps even if a stylesheet set pointer-events:none
+  const tapStyle = document.createElement('style');
+  tapStyle.textContent =
+    '.map-label-wrap{pointer-events:auto;cursor:pointer}' +
+    '.map-pin-name,.map-pin-dot{pointer-events:auto}';
+  document.head.appendChild(tapStyle);
 }
 
 if (window.L) { initMap(); }
