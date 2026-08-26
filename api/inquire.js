@@ -9,7 +9,7 @@
 import nodemailer from 'nodemailer';
 
 const TO = process.env.INQUIRY_TO || 'aurel.garban@gibsonsir.com';
-const CC = process.env.INQUIRY_CC || 'zzakcali@gmail.com';
+const CC = process.env.INQUIRY_CC || 'zzakcali@gmail.com, nicobitran@gmail.com';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
