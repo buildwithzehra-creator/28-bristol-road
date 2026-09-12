@@ -74,6 +74,7 @@
   color: var(--text-dim);
 }
 .f-field input,
+.f-field select,
 .f-field textarea {
   background: transparent;
   border: none;
@@ -88,10 +89,69 @@
   width: 100%;
 }
 .f-field input:focus,
+.f-field select:focus,
 .f-field textarea:focus { border-color: var(--accent); }
 .f-field textarea { resize: none; height: 90px; }
 .f-field input::placeholder,
 .f-field textarea::placeholder { color: rgba(122,112,96,0.5); }
+
+.f-assist {
+  min-height: 17px;
+  margin-top: -2px;
+  color: #8A847E;
+  font-size: 10.5px;
+  line-height: 1.45;
+}
+.f-field.has-error label { color: #9B4338; }
+.f-field.has-error input,
+.f-field.has-error select,
+.f-field.has-error textarea { border-color: #B14E42; }
+.f-field.has-error .f-assist { color: #9B4338; }
+.f-field.has-error .f-assist::before {
+  content: '!';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 600;
+  vertical-align: -1px;
+}
+.phone-control {
+  display: grid;
+  grid-template-columns: 108px minmax(0, 1fr);
+  gap: 14px;
+}
+.phone-control select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 20px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #77716B 50%),
+    linear-gradient(135deg, #77716B 50%, transparent 50%);
+  background-position: calc(100% - 10px) 50%, calc(100% - 6px) 50%;
+  background-size: 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
+}
+.phone-control input { min-width: 0; }
+.form-summary,
+.form-err {
+  padding: 11px 13px;
+  border: 1px solid rgba(155,67,56,.22);
+  border-radius: 4px;
+  background: rgba(155,67,56,.045);
+  color: #8E3F35;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+.form-summary[hidden],
+.form-err[hidden] { display: none; }
+.form-err a { color: inherit; text-decoration-color: rgba(142,63,53,.35); }
 
 .form-btn {
   margin-top: 10px;
@@ -131,3 +191,10 @@
   margin-bottom: 14px;
 }
 .form-ok p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+
+@media (max-width: 680px) {
+  .f-field input,
+  .f-field select,
+  .f-field textarea { font-size: 16px; }
+  .phone-control { grid-template-columns: 112px minmax(0, 1fr); gap: 12px; }
+}

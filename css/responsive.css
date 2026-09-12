@@ -1,3 +1,4 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 RESPONSIVE — 1024px (large tablet / small laptop)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media (max-width: 1024px) {
@@ -39,11 +40,16 @@ RESPONSIVE — 1024px (large tablet / small laptop)
   .nav-burger {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 5px;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    width: 44px;
+    height: 44px;
+    margin: -10px -10px -10px 0;
+    padding: 10px;
     position: relative;
     z-index: 1;
   }
@@ -158,6 +164,7 @@ RESPONSIVE — 1024px (large tablet / small laptop)
 
   /* ── Materials ── */
   .mat-top { grid-template-columns: 1fr; gap: 40px; margin-bottom: 40px; }
+  .mat-top > * { min-width: 0; }
   .mat-gallery { grid-template-columns: repeat(2, 1fr) !important; grid-template-rows: auto !important; }
   .mat-thumb:nth-child(1) { grid-column: span 2; grid-row: span 1; }
 
@@ -165,17 +172,22 @@ RESPONSIVE — 1024px (large tablet / small laptop)
   .interiors-row,
   .interiors-row.flipped { grid-template-columns: 1fr; height: auto; min-height: 0; }
   .interior-panel { height: 56vw; min-height: 220px; }
+  .interior-panel-label { left: 20px; bottom: 20px; }
+
+  /* ── Vision image ── */
+  #vision-strip { height: clamp(300px, 54vh, 430px); min-height: 0; }
+  .vision-caption { right: 20px; bottom: 24px; max-width: calc(100% - 40px); }
 
   /* ── Tour ── */
   .tour-header { padding: 52px 20px 32px; }
   .tour-title-row { flex-direction: column; align-items: flex-start; gap: 12px; }
   .tour-hint { text-align: left; }
   .pano-embed-wrap { padding: 0 20px 52px; }
-  .pano-embed { height: 68vh; min-height: 420px; }
+  .pano-embed { height: min(68svh, 560px); min-height: 360px; }
   .pano-wrap { height: 56vw; min-height: 260px; }
   .tour-nav { padding: 0 20px; }
   .tnav-btn { padding: 9px 14px; font-size: 10px; }
-  .stone-table { margin: 0 20px; width: calc(100% - 40px); }
+  .stone-table { margin: 0; width: 100%; }
 
   /* ── Location ── */
   .loc-layout { grid-template-columns: 1fr; gap: 32px; margin-top: 40px; }
@@ -184,10 +196,28 @@ RESPONSIVE — 1024px (large tablet / small laptop)
   .prox-group-lbl { margin-top: 4px; margin-bottom: 14px; }
   .prox-groups > div { flex: 1; min-width: 200px; }
 
+  .route-info-panel {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  .route-info-left { flex: 1 1 calc(100% - 44px); }
+  .route-times {
+    order: 3;
+    width: 100%;
+    border-left: 0;
+    border-top: 1px solid var(--border-dim);
+    padding: 10px 0 0;
+  }
+  .route-time-item { flex: 1; padding: 0 8px; }
+  .route-close-btn { width: 34px; height: 34px; }
+
   /* ── Inquire ── */
   .inq-layout { grid-template-columns: 1fr; gap: 40px; }
-  /* Keep form fields in 2-col pairs at 768px, only collapse at 480px */
-  .f-field.wide { grid-column: span 1; }
+  .inq-card { padding: 30px 24px 26px; }
+  /* Message uses the full card width while paired fields remain two columns. */
+  .f-field.wide { grid-column: 1 / -1; }
 
   /* ── Footer ── */
   footer { padding: 64px 20px 40px; }
@@ -232,19 +262,29 @@ RESPONSIVE — 1024px (large tablet / small laptop)
 
   .interior-panel { height: 68vw; }
 
+  .pano-embed { height: min(64svh, 500px); min-height: 330px; }
   .pano-wrap { height: 64vw; min-height: 220px; }
   .tour-header { padding: 40px 16px 24px; }
   .tour-nav { padding: 0 16px; }
-  .stone-table { margin: 0 16px; width: calc(100% - 32px); }
+  .stone-table { margin: 0; width: 100%; }
+  .stone-room { white-space: normal; }
+  .stone-name { white-space: normal; overflow: visible; text-overflow: clip; }
 
   #map-box { height: 280px; }
   .prox-groups { flex-direction: column; }
   .route-times { gap: 0; }
-  .route-time-item { padding: 0 10px; }
+  .route-time-item { padding: 0 6px; }
+  .route-time-val { font-size: 15px; }
+  .route-time-lbl { font-size: 8px; letter-spacing: .08em; }
 
   /* At 480px, collapse form rows to 1-col */
   .form-row { grid-template-columns: 1fr; }
+  .f-field.wide { grid-column: span 1; }
   .inq-layout { gap: 32px; }
+  .inq-card { padding: 26px 16px 22px; border-radius: 4px; }
+  .inq-form { gap: 20px; }
+  .phone-control { grid-template-columns: 104px minmax(0, 1fr); gap: 10px; }
+  .form-btn { padding: 17px 16px; letter-spacing: .2em; }
   footer { padding: 0 16px 24px; }
   .foot-address { font-size: clamp(22px, 8vw, 32px); }
   .footer-agent { flex-direction: column; align-items: flex-start; gap: 12px; }

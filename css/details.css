@@ -104,7 +104,12 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  filter: var(--render-grade);
 }
+.details-exterior-grid .render-view-7 { --render-grade: brightness(.97) contrast(1.06) saturate(.94) sepia(.035); }
+.details-exterior-grid .render-view-4 { --render-grade: brightness(.96) contrast(1.07) saturate(.98) sepia(.04); }
+.details-exterior-grid .render-view-3 { --render-grade: brightness(.96) contrast(1.07) saturate(.96) sepia(.04); }
+.details-exterior-grid .render-view-2 { --render-grade: brightness(.95) contrast(1.08) saturate(1) sepia(.045); }
 
 @media (max-width: 680px) {
   .details-exteriors { margin-top: 48px; }

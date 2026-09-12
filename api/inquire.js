@@ -16,16 +16,43 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
   }
 
-  const { firstName, lastName, email, phone, message, website } = req.body || {};
+  const { firstName, lastName, email, phone, countryCode, phoneCountry, message, website } = req.body || {};
 
   // Honeypot: real users never fill the hidden "website" field
   if (website) return res.status(200).json({ ok: true });
 
-  if (!firstName || !lastName || !email || !phone) {
-    return res.status(400).json({ ok: false, error: 'Missing required fields' });
+  const plausibleName = value => {
+    const clean = String(value || '').trim().replace(/\s+/g, ' ');
+    if (clean.length < 2 || clean.length > 50) return false;
+    if (!/^[\p{L}][\p{L}\p{M}'’ -]*[\p{L}\p{M}]$/u.test(clean)) return false;
+    const letters = [...clean.toLocaleLowerCase().replace(/[^\p{L}]/gu, '')];
+    return letters.length >= 2 && !(letters.length >= 3 && new Set(letters).size === 1);
+  };
+  const plausibleEmail = value => {
+    const candidate = String(value || '').trim();
+    if (candidate.length > 254) return false;
+    const at = candidate.lastIndexOf('@');
+    if (at < 1 || at !== candidate.indexOf('@')) return false;
+    const local = candidate.slice(0, at);
+    const domain = candidate.slice(at + 1).toLowerCase();
+    if (local.length > 64 || local.startsWith('.') || local.endsWith('.') || local.includes('..')) return false;
+    if (!/^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+$/i.test(local)) return false;
+    const labels = domain.split('.');
+    return labels.length >= 2 && /^[a-z]{2,24}$/i.test(labels.at(-1)) &&
+      labels.every(label => /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i.test(label));
+  };
+
+  const fieldErrors = {};
+  if (!plausibleName(firstName)) fieldErrors.firstName = 'Enter a valid first name using at least 2 letters.';
+  if (!plausibleName(lastName)) fieldErrors.lastName = 'Enter a valid last name using at least 2 letters.';
+  if (!plausibleEmail(email)) fieldErrors.email = 'Enter a complete email address, like name@example.com.';
+  if (!/^\+\d{1,4}$/.test(String(countryCode || ''))) fieldErrors.phone = 'Select a valid country code.';
+  const phoneDigits = String(phone || '').replace(/\D/g, '');
+  if (phoneDigits.length < 8 || phoneDigits.length > 19 || new Set(phoneDigits).size === 1) {
+    fieldErrors.phone = 'Enter a valid phone number.';
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return res.status(400).json({ ok: false, error: 'Invalid email address' });
+  if (Object.keys(fieldErrors).length) {
+    return res.status(400).json({ ok: false, error: 'Invalid inquiry details', fieldErrors });
   }
 
   const esc = s => String(s).replace(/[&<>"']/g, c => ({
@@ -43,7 +70,7 @@ export default async function handler(req, res) {
         <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#6D6660">Email</td>
             <td style="padding:8px 0;border-bottom:1px solid #eee"><a href="mailto:${esc(email)}">${esc(email)}</a></td></tr>
         <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#6D6660">Phone</td>
-            <td style="padding:8px 0;border-bottom:1px solid #eee"><a href="tel:${esc(phone)}">${esc(phone)}</a></td></tr>
+            <td style="padding:8px 0;border-bottom:1px solid #eee"><a href="tel:${esc(phone)}">${esc(phone)}</a>${phoneCountry ? ` · ${esc(phoneCountry)}` : ''}</td></tr>
         ${message ? `<tr><td style="padding:8px 0;color:#6D6660;vertical-align:top">Message</td>
             <td style="padding:8px 0">${esc(message)}</td></tr>` : ''}
       </table>
