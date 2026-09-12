@@ -11,7 +11,7 @@ function initMap() {
     closePopupOnClick: false
   });
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(map);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
   function makeLabelIcon(label, type) {
     return L.divIcon({
@@ -29,7 +29,7 @@ function initMap() {
         <div style="font-family:'Cormorant Garant',serif;font-size:18px;font-weight:400;color:#19180F;margin-bottom:3px;line-height:1.2">28 Bristol Road</div>
         <div style="font-size:11px;color:#6D6660;margin-bottom:10px">Newton, MA 02458</div>
         <div style="padding-top:10px;border-top:1px solid rgba(25,24,15,0.08);font-size:11px;color:#4A4440;letter-spacing:0.04em">
-          7 BD &nbsp;·&nbsp; 6.5 BA &nbsp;·&nbsp; 5,400 SF &nbsp;·&nbsp; 0.38 ac
+          7 BD &nbsp;·&nbsp; 6.5 BA &nbsp;·&nbsp; 5,400 SF &nbsp;·&nbsp; 1.12 ac
         </div>
       </div>
     `, { autoClose: false, closeOnClick: false, closeButton: false, maxWidth: 230, minWidth: 210, offset: L.point(0, -4) })
