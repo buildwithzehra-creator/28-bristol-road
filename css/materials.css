@@ -43,18 +43,21 @@
 .mat-thumb img {
   width: 100%; height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: opacity 220ms ease;
   display: block;
 }
-.mat-thumb:hover img { transform: scale(1.06); }
+@media (hover: hover) and (pointer: fine) { .mat-thumb:hover img { opacity: .97; } }
 .mat-thumb:nth-child(1) {
   grid-column: span 2;
   grid-row: span 2;
 }
 .mat-thumb-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(8,8,6,0.6) 0%, transparent 60%);
+  background: linear-gradient(to top, rgba(8,8,6,0.12) 0%, transparent 60%);
   opacity: 0;
   transition: opacity 0.4s;
 }
 .mat-thumb:hover .mat-thumb-overlay { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+ .mat-thumb img, .mat-thumb-overlay { transition: none; }
+}

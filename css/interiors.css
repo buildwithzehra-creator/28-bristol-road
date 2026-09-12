@@ -17,7 +17,7 @@
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
-  /* parallax + hover scale handled in JS */
+  transition: opacity 220ms ease;
 }
 .interior-panel-label {
   position: absolute;
@@ -31,4 +31,10 @@
   pointer-events: none;
   z-index: 2;
   white-space: nowrap;
+}
+@media (hover: hover) and (pointer: fine) {
+  .interior-panel:hover img { opacity: .97; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .interior-panel img { transition: none; }
 }

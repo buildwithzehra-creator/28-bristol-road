@@ -1,17 +1,18 @@
 // ━━━━━━━━━━━━━━ MAP (Leaflet + OSRM routing) ━━━━━━━━━━━━━━
 function initMap() {
-  const propCoords = [42.3317, -71.2094];
+  const propCoords = [42.3377074, -71.2218114];
 
   const map = L.map('map', {
-    center: [42.3300, -71.2094],
-    zoom: 14,
+    center: propCoords,
+    zoom: 16,
     zoomControl: false,
     scrollWheelZoom: false,
-    attributionControl: false,
+    attributionControl: true,
     closePopupOnClick: false
   });
 
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', { maxZoom: 16 }).addTo(map); document.head.insertAdjacentHTML('beforeend','<style>.leaflet-tile-pane{filter:grayscale(0.3) brightness(1.04) contrast(0.95)}</style>');
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, className: 'minimal-base-tiles', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
+  map.attributionControl.setPrefix(false);
 
   function makeLabelIcon(label, type) {
     return L.divIcon({
@@ -25,12 +26,9 @@ function initMap() {
     .addTo(map)
     .bindPopup(`
       <div style="font-family:'Inter',sans-serif;padding:2px 0">
-        <div style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#B8924A;margin-bottom:7px">Pre-Construction</div>
-        <div style="font-family:'Cormorant Garant',serif;font-size:18px;font-weight:400;color:#19180F;margin-bottom:3px;line-height:1.2">28 Bristol Road</div>
-        <div style="font-size:11px;color:#6D6660;margin-bottom:10px">Newton, MA 02458</div>
-        <div style="padding-top:10px;border-top:1px solid rgba(25,24,15,0.08);font-size:11px;color:#4A4440;letter-spacing:0.04em">
-          7 BD &nbsp;·&nbsp; 6.5 BA &nbsp;·&nbsp; 8,614 SF &nbsp;·&nbsp; 1.12 ac
-        </div>
+        <div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#9B9A97;margin-bottom:7px">Pre-Construction</div>
+        <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:500;color:#37352F;margin-bottom:3px;line-height:1.2">28 Bristol Road</div>
+        <div style="font-size:11px;color:#6D6660;margin-bottom:10px">West Newton, MA 02465</div>
       </div>
     `, { autoClose: false, closeOnClick: false, closeButton: false, maxWidth: 230, minWidth: 210, offset: L.point(0, -4) })
     .openPopup();
@@ -89,7 +87,7 @@ function initMap() {
     if (routeLayer) { map.removeLayer(routeLayer); routeLayer = null; }
     routePanel.classList.remove('open');
     if (activeItem) { activeItem.classList.remove('active'); activeItem = null; }
-    map.flyTo([42.3300, -71.2094], 14, { duration: 0.9, easeLinearity: 0.4 });
+    map.flyTo(propCoords, 16, { duration: 0.9, easeLinearity: 0.4 });
     setTimeout(() => propMarker.openPopup(), 950);
   }
 

@@ -134,3 +134,28 @@
 .prox-item.active .prox-name { color: var(--accent); }
 .prox-name { font-size: 12.5px; color: var(--text-mid); transition: color 0.25s; }
 .prox-dist { font-family: var(--serif); font-size: 13px; color: var(--text-dim); }
+/* Desaturate only the basemap; preserve gold property and route markers. */
+.minimal-base-tiles { filter: grayscale(1) contrast(.75) brightness(1.15); }
+.leaflet-control-attribution { font: 10px/1.5 var(--sans); background: rgba(255,255,255,.92)!important; }
+
+/* Light, restrained map treatment. */
+#map { background: #fafafa; }
+.minimal-base-tiles { filter: grayscale(1) contrast(.38) brightness(1.48); }
+.leaflet-popup-content-wrapper {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.035);
+  font-family: var(--sans);
+}
+.leaflet-popup-tip { box-shadow: none; }
+.leaflet-popup-content { margin: 18px 20px; }
+.map-pin-name { background: rgba(255,255,255,.94); color: #787774; font-family: var(--sans); font-size: 10px; }
+.leaflet-control-attribution { color: #999; font-size: 9px; }
+.leaflet-control-attribution a { color: #787774; }
+
+/* Quiet neighborhood backdrop, with the property as the focal point. */
+#map { background: #fff; }
+.minimal-base-tiles { filter: grayscale(1) contrast(.38) brightness(1.48); opacity: .48; }
+.leaflet-popup-content-wrapper { border-color: #ededed; box-shadow: none; }
+.map-label-wrap:not(.prop) .map-pin-name { opacity: .65; }

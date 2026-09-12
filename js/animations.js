@@ -33,33 +33,6 @@ const visionObs = new IntersectionObserver(entries => {
 const vImg = document.getElementById('visionImg');
 if (vImg) visionObs.observe(vImg);
 
-// ━━━━━━━━━━━━━━ INTERIOR PANEL PARALLAX ━━━━━━━━━━━━━━
-const interiorPanels = document.querySelectorAll('.interior-panel');
-const hovered = new Set();
-
-interiorPanels.forEach((panel, i) => {
-  panel.addEventListener('mouseenter', () => hovered.add(i));
-  panel.addEventListener('mouseleave', () => hovered.delete(i));
-});
-
-function updatePanelParallax() {
-  interiorPanels.forEach((panel, i) => {
-    const img = panel.querySelector('img');
-    if (!img) return;
-    const rect = panel.getBoundingClientRect();
-    if (rect.bottom < -200 || rect.top > window.innerHeight + 200) return;
-    const centerOff = rect.top + rect.height / 2 - window.innerHeight / 2;
-    const ty = centerOff * 0.07;
-    const sc = hovered.has(i) ? 1.055 : 1.0;
-    img.style.transform = `translateY(${ty}px) scale(${sc})`;
-    img.style.transition = hovered.has(i) ? 'transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94)' : 'transform 0.1s linear';
-  });
-}
-
-window.addEventListener('scroll', updatePanelParallax, { passive: true });
-window.addEventListener('resize', updatePanelParallax);
-updatePanelParallax();
-
 // ━━━━━━━━━━━━━━ VISION STRIP PARALLAX ━━━━━━━━━━━━━━
 const visionImgEl = document.getElementById('visionImg');
 if (visionImgEl) {
@@ -84,38 +57,3 @@ if (formBtn) {
   });
   formBtn.addEventListener('mouseleave', () => { formBtn.style.transform = ''; });
 }
-
-// ━━━━━━━━━━━━━━ PHASE 3: VANILLA TILT.JS ━━━━━━━━━━━━━━
-function initTilt() {
-  if (typeof VanillaTilt === 'undefined') return;
-
-  // Interior panels — subtle luxury tilt
-  VanillaTilt.init(document.querySelectorAll('.interior-panel'), {
-    max: 4,
-    speed: 500,
-    glare: true,
-    'max-glare': 0.08,
-    scale: 1.025,
-    perspective: 1200,
-    easing: 'cubic-bezier(.03,.98,.52,.99)',
-  });
-
-  // Materials grid — slightly more expressive
-  VanillaTilt.init(document.querySelectorAll('.mat-thumb'), {
-    max: 7,
-    speed: 400,
-    glare: true,
-    'max-glare': 0.12,
-    scale: 1.04,
-    perspective: 900,
-  });
-}
-
-// Init after Tilt.js loads (it's deferred in the HTML)
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initTilt);
-} else {
-  initTilt();
-}
-// Also try again 1s later in case the CDN script hasn't parsed yet
-setTimeout(initTilt, 1000);
