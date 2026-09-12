@@ -213,9 +213,9 @@ footer {
 /* ━━━━━━━━━━━━━━ MAP PIN LABELS ━━━━━━━━━━━━━━ */
 .map-label-wrap { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
 .map-pin-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; border: 1.5px solid #FFF; }
-.map-label-wrap.edu .map-pin-dot { background: #5A7A5A; }
-.map-label-wrap.shop .map-pin-dot { background: #6A6A9E; }
-.map-label-wrap.transit .map-pin-dot { background: #9E6A5A; }
+.map-label-wrap.edu .map-pin-dot,
+.map-label-wrap.shop .map-pin-dot,
+.map-label-wrap.transit .map-pin-dot { background: #A9A8A4; }
 .map-label-wrap.prop .map-pin-dot {
   width: 11px; height: 11px;
   background: var(--accent);

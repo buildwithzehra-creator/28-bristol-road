@@ -30,8 +30,7 @@ function initMap() {
         <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:500;color:#37352F;margin-bottom:3px;line-height:1.2">28 Bristol Road</div>
         <div style="font-size:11px;color:#6D6660;margin-bottom:10px">West Newton, MA 02465</div>
       </div>
-    `, { autoClose: false, closeOnClick: false, closeButton: false, maxWidth: 230, minWidth: 210, offset: L.point(0, -4) })
-    .openPopup();
+    `, { autoClose: false, closeOnClick: false, closeButton: false, maxWidth: 230, minWidth: 210, offset: L.point(0, -4) });
 
   const pois = [
     { label: 'Cabot Elementary',       coords: [42.3334,-71.2119], type: 'edu' },
@@ -53,6 +52,23 @@ function initMap() {
     poi: p,
     marker: L.marker(p.coords, { icon: makeLabelIcon(p.label, p.type), riseOnHover: true }).addTo(map)
   }));
+
+  // Open wide enough to show the useful Newton-area destinations immediately.
+  // Farther Boston destinations remain available from the proximity list and
+  // are brought into view when selected.
+  const nearbyBounds = L.latLngBounds([
+    propCoords,
+    ...pois
+      .filter(p => p.coords[1] < -71.16)
+      .map(p => p.coords)
+  ]).pad(0.16);
+  map.fitBounds(nearbyBounds, {
+    paddingTopLeft: [42, 118],
+    paddingBottomRight: [42, 42],
+    maxZoom: 13,
+    animate: false
+  });
+  setTimeout(() => propMarker.openPopup(), 0);
 
   let routeLayer = null;
   let activeItem = null;

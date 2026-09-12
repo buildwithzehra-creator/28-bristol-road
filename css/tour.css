@@ -26,8 +26,8 @@
   height: min(82vh, 820px);
   min-height: 560px;
   border: 0;
-  background: #080806;
-  box-shadow: 0 24px 80px rgba(25,24,15,0.14);
+  background: #f1f1ef;
+  box-shadow: none;
 }
 
 .pano-embed:focus-visible {
