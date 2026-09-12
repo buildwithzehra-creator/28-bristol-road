@@ -11,7 +11,7 @@ function initMap() {
     closePopupOnClick: false
   });
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', { maxZoom: 16 }).addTo(map); document.head.insertAdjacentHTML('beforeend','<style>.leaflet-tile-pane{filter:sepia(0.22) saturate(0.8) brightness(1.03) contrast(0.97)}</style>');
 
   function makeLabelIcon(label, type) {
     return L.divIcon({
