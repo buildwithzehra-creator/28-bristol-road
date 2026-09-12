@@ -11,7 +11,7 @@ function initMap() {
     closePopupOnClick: false
   });
 
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', { maxZoom: 16 }).addTo(map); document.head.insertAdjacentHTML('beforeend','<style>.leaflet-tile-pane{filter:sepia(0.22) saturate(0.8) brightness(1.03) contrast(0.97)}</style>');
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', { maxZoom: 16 }).addTo(map); document.head.insertAdjacentHTML('beforeend','<style>.leaflet-tile-pane{filter:grayscale(0.3) brightness(1.04) contrast(0.95)}</style>');
 
   function makeLabelIcon(label, type) {
     return L.divIcon({
@@ -29,7 +29,7 @@ function initMap() {
         <div style="font-family:'Cormorant Garant',serif;font-size:18px;font-weight:400;color:#19180F;margin-bottom:3px;line-height:1.2">28 Bristol Road</div>
         <div style="font-size:11px;color:#6D6660;margin-bottom:10px">Newton, MA 02458</div>
         <div style="padding-top:10px;border-top:1px solid rgba(25,24,15,0.08);font-size:11px;color:#4A4440;letter-spacing:0.04em">
-          7 BD &nbsp;·&nbsp; 6 BA &nbsp;·&nbsp; 8,614 SF &nbsp;·&nbsp; 1.12 ac
+          7 BD &nbsp;·&nbsp; 6.5 BA &nbsp;·&nbsp; 8,614 SF &nbsp;·&nbsp; 1.12 ac
         </div>
       </div>
     `, { autoClose: false, closeOnClick: false, closeButton: false, maxWidth: 230, minWidth: 210, offset: L.point(0, -4) })
