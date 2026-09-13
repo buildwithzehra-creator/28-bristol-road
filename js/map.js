@@ -1,6 +1,6 @@
 // ━━━━━━━━━━━━━━ MAP (Leaflet + OSRM routing) ━━━━━━━━━━━━━━
 function initMap() {
-  const propCoords = [42.3377074, -71.2218114];
+  const propCoords = [42.3377227, -71.2218815];
 
   const map = L.map('map', {
     center: propCoords,
@@ -33,19 +33,19 @@ function initMap() {
     `, { autoClose: false, closeOnClick: false, closeButton: false, maxWidth: 230, minWidth: 210, offset: L.point(0, -4) });
 
   const pois = [
-    { label: 'Cabot Elementary',       coords: [42.3488612,-71.1986649], type: 'edu' },
-    { label: 'Newton Country Day',     coords: [42.3457124,-71.1918609], type: 'edu' },
-    { label: 'Newton South HS',        coords: [42.3123240,-71.1890132], type: 'edu' },
-    { label: 'Harvard',                coords: [42.3744495,-71.1182875], type: 'edu' },
-    { label: 'MIT',                    coords: [42.3592593,-71.0933625], type: 'edu' },
-    { label: 'Newton Centre Village',  coords: [42.3306426,-71.1913487], type: 'shop' },
-    { label: 'Trader Joe’s',           coords: [42.3123457,-71.2140057], type: 'shop' },
-    { label: 'Whole Foods',            coords: [42.3301244,-71.2063709], type: 'shop' },
-    { label: 'The Shops at Chestnut Hill', coords: [42.3213264,-71.1763953], type: 'shop' },
-    { label: 'Newton Centre T',        coords: [42.3294261,-71.1923380], type: 'transit' },
-    { label: 'Logan Airport',          coords: [42.3631767,-71.0136401], type: 'transit' },
-    { label: 'South Station',          coords: [42.3507662,-71.0554618], type: 'transit' },
-    { label: 'Downtown Boston',        coords: [42.3603713,-71.0579762], type: 'transit' },
+    { label: 'Cabot Elementary',       coords: [42.3491457,-71.1987390], type: 'edu' },
+    { label: 'Newton Country Day',     coords: [42.3455593,-71.1913348], type: 'edu' },
+    { label: 'Newton South HS',        coords: [42.3136940,-71.1862230], type: 'edu' },
+    { label: 'Harvard',                coords: [42.3744368,-71.1182810], type: 'edu' },
+    { label: 'MIT',                    coords: [42.3591974,-71.0931527], type: 'edu' },
+    { label: 'Newton Centre Village',  coords: [42.3299966,-71.1948805], type: 'shop' },
+    { label: 'Trader Joe’s',           coords: [42.3121478,-71.2138224], type: 'shop' },
+    { label: 'Whole Foods',            coords: [42.3300663,-71.2063967], type: 'shop' },
+    { label: 'The Shops at Chestnut Hill', coords: [42.3213351,-71.1759894], type: 'shop' },
+    { label: 'Newton Centre T',        coords: [42.3295368,-71.1924827], type: 'transit' },
+    { label: 'Logan Airport',          coords: [42.3656020,-71.0096136], type: 'transit' },
+    { label: 'South Station',          coords: [42.3522800,-71.0552700], type: 'transit' },
+    { label: 'Downtown Boston',        coords: [42.3604060,-71.0579930], type: 'transit' },
   ];
   // Keep a reference to each POI marker so we can wire tap-to-route (mobile-friendly)
   const poiMarkers = pois.map(p => ({
