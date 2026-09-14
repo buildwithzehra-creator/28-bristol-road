@@ -26,7 +26,7 @@ function initMap() {
     .addTo(map)
     .bindPopup(`
       <div style="font-family:'Inter',sans-serif;padding:2px 0">
-        <div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#9B9A97;margin-bottom:7px">Pre-Construction</div>
+        <div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#9B9A97;margin-bottom:7px">Full Gut Renovation</div>
         <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:500;color:#37352F;margin-bottom:3px;line-height:1.2">28 Bristol Road</div>
         <div style="font-size:11px;color:#6D6660;margin-bottom:10px">West Newton, MA 02465</div>
       </div>
